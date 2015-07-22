@@ -50,7 +50,7 @@
         <!--Trending View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" userLabel="Trending View Controller" customClass="TrendingViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" userLabel="Trending View Controller" customClass="TrendingViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -63,7 +63,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell2" rowHeight="805" id="3Wl-Vz-KQI" customClass="PostTableViewCell" customModule="Gegder" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell2" rowHeight="805" id="3Wl-Vz-KQI" customClass="PostTableViewCell" customModule="SnapSnap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Wl-Vz-KQI" id="OgY-Gk-0dX">
@@ -286,7 +286,7 @@
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="0la-Z0-O2g" secondAttribute="bottom" id="zvd-d5-Dmv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gegder" id="bTy-xz-zRa">
+                    <navigationItem key="navigationItem" title="SnapSnap" id="bTy-xz-zRa">
                         <barButtonItem key="backBarButtonItem" title="Back" id="wo2-j4-025"/>
                         <barButtonItem key="leftBarButtonItem" image="menu icon" width="66" id="m1F-Kc-hae">
                             <connections>
@@ -310,7 +310,7 @@
         <!--Search View Controller-->
         <scene sceneID="Nj5-xq-1HS">
             <objects>
-                <viewController id="Fb8-cd-rq9" userLabel="Search View Controller" customClass="SearchViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Fb8-cd-rq9" userLabel="Search View Controller" customClass="SearchViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Ye-yp-Mvu"/>
                         <viewControllerLayoutGuide type="bottom" id="pnK-Bw-a8q"/>
@@ -332,7 +332,7 @@
                             <constraint firstItem="4n9-T4-tdf" firstAttribute="centerY" secondItem="cBz-HD-Ix9" secondAttribute="centerY" id="ir0-h2-uYS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gegder" id="NVx-o1-JeP"/>
+                    <navigationItem key="navigationItem" title="SnapSnap" id="NVx-o1-JeP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erk-4W-ek3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -341,7 +341,7 @@
         <!--Notifications View Controller-->
         <scene sceneID="aeg-AB-g04">
             <objects>
-                <viewController id="sle-N5-DUI" userLabel="Notifications View Controller" customClass="NotificationsViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sle-N5-DUI" userLabel="Notifications View Controller" customClass="NotificationsViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W4X-03-TNK"/>
                         <viewControllerLayoutGuide type="bottom" id="x5m-t2-ct6"/>
@@ -354,7 +354,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCell" rowHeight="71" id="1Vg-DW-702" customClass="NotificationsTableViewCell" customModule="Gegder" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationsCell" rowHeight="71" id="1Vg-DW-702" customClass="NotificationsTableViewCell" customModule="SnapSnap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Vg-DW-702" id="eoT-LU-XBm">
@@ -409,7 +409,7 @@
                             <constraint firstItem="OWO-L8-zza" firstAttribute="top" secondItem="W4X-03-TNK" secondAttribute="bottom" id="WcR-zq-Q5e"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gegder" id="Ssz-yu-Lkl">
+                    <navigationItem key="navigationItem" title="SnapSnap" id="Ssz-yu-Lkl">
                         <barButtonItem key="backBarButtonItem" title="Back" id="JPK-fK-Byp"/>
                     </navigationItem>
                     <connections>
@@ -423,7 +423,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="f3m-zS-nbm">
             <objects>
-                <viewController id="1OG-Oe-avg" customClass="WelcomeViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1OG-Oe-avg" customClass="WelcomeViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FEk-nh-4sf"/>
                         <viewControllerLayoutGuide type="bottom" id="le8-bZ-4IM"/>
@@ -451,19 +451,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="203-Aa-fmW" userLabel="View2">
                                 <rect key="frame" x="0.0" y="213" width="600" height="194"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gegder" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="dHZ-Xf-RPf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SnapSnap" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="dHZ-Xf-RPf">
                                         <rect key="frame" x="75" y="-78" width="450" height="240"/>
                                         <fontDescription key="fontDescription" name="PoetsenOne-Regular" family="PoetsenOne" pointSize="200"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post your Views," lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-fO-qLy">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post your Views," lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-fO-qLy">
                                         <rect key="frame" x="277" y="102" width="87" height="21"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share the News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHg-aH-8sb">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share the News" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHg-aH-8sb">
                                         <rect key="frame" x="320" y="123" width="83" height="21"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -584,7 +584,7 @@
         <!--Menu View Controller-->
         <scene sceneID="HEl-Xa-rcL">
             <objects>
-                <tableViewController id="P6C-3y-iho" customClass="MenuViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="P6C-3y-iho" customClass="MenuViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5pZ-3h-ech">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="176"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -710,7 +710,7 @@
         <!--Web View Controller-->
         <scene sceneID="xPL-cX-eIN">
             <objects>
-                <viewController id="Tew-65-CYa" userLabel="Web View Controller" customClass="WebViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Tew-65-CYa" userLabel="Web View Controller" customClass="WebViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YYJ-tf-CVL"/>
                         <viewControllerLayoutGuide type="bottom" id="YbQ-l0-riD"/>
@@ -747,7 +747,7 @@
         <!--Home View Controller-->
         <scene sceneID="usV-u9-ip4">
             <objects>
-                <viewController id="oVI-CD-Ibr" userLabel="Home View Controller" customClass="HomeViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oVI-CD-Ibr" userLabel="Home View Controller" customClass="HomeViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BZM-jb-3wz"/>
                         <viewControllerLayoutGuide type="bottom" id="6zi-z6-xQ6"/>
@@ -760,7 +760,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" rowHeight="805" id="ECH-yo-eYu" customClass="PostTableViewCell" customModule="Gegder" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" rowHeight="805" id="ECH-yo-eYu" customClass="PostTableViewCell" customModule="SnapSnap" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ECH-yo-eYu" id="AQn-3s-vG6">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -982,7 +982,7 @@
                             <constraint firstItem="6zi-z6-xQ6" firstAttribute="top" secondItem="z68-PA-B0J" secondAttribute="bottom" constant="10" id="rhB-Ua-Vpq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gegder" id="YWl-Wu-DeZ">
+                    <navigationItem key="navigationItem" title="SnapSnap" id="YWl-Wu-DeZ">
                         <barButtonItem key="backBarButtonItem" title="Back" id="oKl-S3-Va7"/>
                         <barButtonItem key="leftBarButtonItem" image="menu icon" id="mk4-ev-ARW">
                             <connections>
@@ -1117,7 +1117,7 @@
         <!--New Post View Controller-->
         <scene sceneID="6VN-Jj-Oll">
             <objects>
-                <viewController id="Q7A-z6-3Oh" userLabel="New Post View Controller" customClass="NewPostViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Q7A-z6-3Oh" userLabel="New Post View Controller" customClass="NewPostViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pMg-bl-aOd"/>
                         <viewControllerLayoutGuide type="bottom" id="Udg-lp-BQ6"/>
@@ -1282,7 +1282,7 @@
         <!--Comments-->
         <scene sceneID="4uc-dz-LM2">
             <objects>
-                <viewController id="zVK-OS-hDa" customClass="CommentsViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zVK-OS-hDa" customClass="CommentsViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GYe-Pr-EXZ"/>
                         <viewControllerLayoutGuide type="bottom" id="hvQ-LO-iJ6"/>
@@ -1295,7 +1295,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="200" id="Wf0-2H-OTf" customClass="CommentsTableViewCell" customModule="Gegder" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="200" id="Wf0-2H-OTf" customClass="CommentsTableViewCell" customModule="SnapSnap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="82" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wf0-2H-OTf" id="RPE-vJ-PzY">
@@ -1485,7 +1485,7 @@
         <!--Notification-->
         <scene sceneID="FgB-rQ-gdG">
             <objects>
-                <viewController id="YCY-14-lIe" customClass="SingleNotificationViewController" customModule="Gegder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YCY-14-lIe" customClass="SingleNotificationViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYg-ye-sGr"/>
                         <viewControllerLayoutGuide type="bottom" id="DLs-sG-NJ7"/>
@@ -1557,8 +1557,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="owN-xk-3fl"/>
-        <segue reference="6vC-hC-E2b"/>
         <segue reference="naq-P2-aSN"/>
         <segue reference="zQB-wV-I6O"/>
+        <segue reference="6vC-hC-E2b"/>
     </inferredMetricsTieBreakers>
 </document>
