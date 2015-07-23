@@ -93,10 +93,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //https://stavash.wordpress.com/2012/12/14/advanced-issues-asynchronous-uitableviewcell-content-loading-done-right/
     }
     
-//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(postCellId, forIndexPath: indexPath) as! PostTableViewCell
         
@@ -129,6 +125,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 // Convert the downloaded data in to a UIImage object and cache
                                 let image = UIImage(data: data)
                                 self.imageCache[urlString!] = image
+                                
+                                // Get the ratio of image size
+                                let ratio = image!.size.height / image!.size.width
+                                println(ratio)
                                 
                                 // Update the cell
                                 dispatch_async(dispatch_get_main_queue(), {
