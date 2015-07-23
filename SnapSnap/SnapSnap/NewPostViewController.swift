@@ -103,7 +103,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
 //        UIGraphicsEndImageContext()
         
         // Create base64 from image
-        var imageData = UIImageJPEGRepresentation(editedImage, 0.8)
+        var imageData = UIImageJPEGRepresentation(editedImage, 0.2)
         let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
         
         // Replace + with %2B to get around HTTP post restriction
@@ -141,6 +141,8 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if data != nil {
                 var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                
+                println(strData)
                 
                 var posts = JSON(data: data!)
                 
