@@ -93,17 +93,17 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         
         // Fix image orientation and crop to square
         var editedImage = newImage?.fixOrientation()
-        editedImage = editedImage?.cropToSquare()
+//        editedImage = editedImage?.cropToSquare()
         
         // Resize image to 720x720
-        let size = CGSizeMake(720, 720)
-        UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
-        editedImage!.drawInRect(CGRect(origin: CGPointZero, size: size))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+//        let size = CGSizeMake(720, 720)
+//        UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
+//        editedImage!.drawInRect(CGRect(origin: CGPointZero, size: size))
+//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
         
         // Create base64 from image
-        var imageData = UIImageJPEGRepresentation(scaledImage, 0.5)
+        var imageData = UIImageJPEGRepresentation(editedImage, 0.8)
         let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
         
         // Replace + with %2B to get around HTTP post restriction
@@ -170,9 +170,9 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
             
             if isShowing {
                 self.bottomConstraint?.constant = endFrameHeight + 10
-                self.previewHeightConstraint?.active = false
+//                self.previewHeightConstraint?.active = false
             } else {
-                self.previewHeightConstraint?.active = true
+//                self.previewHeightConstraint?.active = true
                 self.bottomConstraint?.constant = 10.0
             }
             
