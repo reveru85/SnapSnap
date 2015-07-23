@@ -44,7 +44,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
         
         // Get comments
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto_comment/dphodto_comment_list/" + postId
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -129,7 +129,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     func getNewComments() {
         
         // Get comments
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto_comment/dphodto_comment_list/" + postId
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -161,7 +161,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Send comment to server
         var postData = "dphodtoId=" + postId + "&userId=" + userID! + "&comment=" + comment
         
-        let urlPath: String = "http://20backendapi15.gegder.com/index.php/dphodto_comment/dphodto_comment_create"
+        let urlPath: String = "http://dev.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_create"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()

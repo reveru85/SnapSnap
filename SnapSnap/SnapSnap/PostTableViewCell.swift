@@ -43,7 +43,7 @@ class PostTableViewCell: UITableViewCell {
             if IsDislike == false {
                 
                 // Like post API
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -86,7 +86,7 @@ class PostTableViewCell: UITableViewCell {
             if IsDislike == false {
                 
                 // Like post API
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -133,7 +133,7 @@ class PostTableViewCell: UITableViewCell {
             if IsLike == false {
                 
                 // Dislike post API
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_dislike/" + PostId! + "/" + UserId!
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_dislike/" + PostId! + "/" + UserId!
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -176,7 +176,7 @@ class PostTableViewCell: UITableViewCell {
             if IsLike == false {
                 
                 // Dislike post API
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_dislike/" + PostId! + "/" + UserId!
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_dislike/" + PostId! + "/" + UserId!
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -271,7 +271,7 @@ class PostTableViewCell: UITableViewCell {
             
             if self.parentView is HomeViewController {
                 
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -292,7 +292,7 @@ class PostTableViewCell: UITableViewCell {
                 })
             } else if self.parentView is TrendingViewController {
                 
-                var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
+                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()

@@ -56,7 +56,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
                 self.getLocationAddress(location! as CLLocation)
             } else if let err = error {
 //                println(err.localizedDescription)
-                self.locationLabel.text = "Unknown location (Disabled in Settings)"
+                self.locationLabel.text = "Unknown (Disabled in Settings)"
             }
            
             self.manager = nil
@@ -128,7 +128,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         
         var postData = postData1 + postData2 + postData3 + postData4 + postData5
         
-        let urlPath: String = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_image_post"
+        let urlPath: String = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_image_post"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()

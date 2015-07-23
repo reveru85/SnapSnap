@@ -63,7 +63,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
             let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
             let deviceHash = deviceID.md5()
             
-            var urlString = "http://20backendapi15.gegder.com/index.php/user/load_user/" + deviceHash!
+            var urlString = "http://dev.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
             
             // Get UserID from server based on deviceID's hash
             var url = NSURL(string: urlString)
@@ -179,7 +179,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
         var postData3 = "&timezone=" + String(self.timezone)
         var postData = postData0 + postData1 + postData2 + postData3
         
-        let urlPath: String = "http://20backendapi15.gegder.com/index.php/user/gegder_user_update"
+        let urlPath: String = "http://dev.snapsnap.com.sg/index.php/user/gegder_user_update"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()

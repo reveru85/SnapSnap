@@ -32,7 +32,7 @@ class TrendingViewController: UIViewController, UITableViewDataSource, UITableVi
         TrendingTableView.rowHeight = UITableViewAutomaticDimension
         
         // Get First Load Posts API
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_trending_list/" + userID!
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_trending_list/" + userID!
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -144,7 +144,7 @@ class TrendingViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getNewPosts() {
         
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_trending_list/" + userID!
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_trending_list/" + userID!
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()

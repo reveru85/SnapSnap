@@ -30,13 +30,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         (UIApplication.sharedApplication().delegate as! AppDelegate).homeView = self
         
+        
+        let modelName = UIDevice.currentDevice().modelName
+        
+        if modelName == "iPhone 4" || modelName == "iPhone 4S" {
+            HomeTableView.estimatedRowHeight = 450
+        }
+        else if modelName == "iPhone 5" || modelName == "iPhone 5C" || modelName == "iPhone 5S" {
+            HomeTableView.estimatedRowHeight = 500
+        }
+        else if modelName == "iPhone 6" {
+            HomeTableView.estimatedRowHeight = 550
+        }
+        else if modelName == "iPhone 6 Plus" {
+            HomeTableView.estimatedRowHeight = 600
+        }
+        else {
+            HomeTableView.estimatedRowHeight = 500
+        }
+        
         HomeTableView.delegate = self
         HomeTableView.dataSource = self
-        HomeTableView.estimatedRowHeight = 600 //value affects scrolling behavior after new posts loads need more experimentation
+        //HomeTableView.estimatedRowHeight = 550 //value affects scrolling behavior after new posts loads need more experimentation
         HomeTableView.rowHeight = UITableViewAutomaticDimension
         
         // Get first load posts
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_list/" + userID!
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + userID!
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -73,6 +92,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //disable any operations still waiting for download, to fix wrong image loads from previously reused cells
         //https://stavash.wordpress.com/2012/12/14/advanced-issues-asynchronous-uitableviewcell-content-loading-done-right/
     }
+    
+//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(postCellId, forIndexPath: indexPath) as! PostTableViewCell
@@ -164,7 +187,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var contentYoffset = scrollView.contentOffset.y
         var distanceFromBottom = scrollView.contentSize.height - contentYoffset
         
-        if distanceFromBottom < ( 3 * height) {
+        if distanceFromBottom < height {
             
             // Reached end of table
             let currentLastPostID = data.entries.last?.post_id!
@@ -182,7 +205,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func getPreviousPosts(postID : String?) {
         
         // Get previous posts based on oldest post
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_previous_post/" + postID! + "/" + userID!
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_previous_post/" + postID! + "/" + userID!
         
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
@@ -204,7 +227,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func getNewPosts() {
         
         // Get new posts based on newest post
-        var urlString = "http://20backendapi15.gegder.com/index.php/dphodto/dphodto_new_post/" + self.data.entries.first!.post_id! + "/" + userID!
+        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + self.data.entries.first!.post_id! + "/" + userID!
         
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
