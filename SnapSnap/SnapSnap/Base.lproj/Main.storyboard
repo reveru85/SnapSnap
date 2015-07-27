@@ -8,6 +8,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+            <string>Lato-Light</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -97,9 +101,31 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWF-sh-TzZ" userLabel="View3">
                                 <rect key="frame" x="0.0" y="407" width="600" height="193"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Kk-OMY" userLabel="View31">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Kk-OMY" userLabel="View31">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="96"/>
                                         <subviews>
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
+                                                <rect key="frame" x="150" y="0.0" width="300" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Ebo-2c-zTL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="1OG-Oe-avg" id="Y7H-dv-BdG"/>
+                                                </connections>
+                                            </textField>
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
+                                                <rect key="frame" x="150" y="55" width="300" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="G3x-b0-v0U"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="go" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="1OG-Oe-avg" id="0bz-By-Fp0"/>
+                                                </connections>
+                                            </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z89-bw-vJq">
                                                 <rect key="frame" x="202" y="29" width="195" height="58"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
@@ -123,15 +149,23 @@
                                             </activityIndicatorView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="VHv-rO-bps" firstAttribute="top" secondItem="XXV-3O-t0F" secondAttribute="bottom" constant="15" id="0EI-Xz-6Vh"/>
                                             <constraint firstItem="c4y-hn-zXj" firstAttribute="centerY" secondItem="z89-bw-vJq" secondAttribute="centerY" id="84P-Xl-2Gs"/>
+                                            <constraint firstItem="XXV-3O-t0F" firstAttribute="top" secondItem="gUJ-Kk-OMY" secondAttribute="top" id="Hlh-Fl-uDL"/>
+                                            <constraint firstAttribute="width" secondItem="XXV-3O-t0F" secondAttribute="width" multiplier="2:1" id="ILV-cB-RAn"/>
                                             <constraint firstAttribute="centerX" secondItem="z89-bw-vJq" secondAttribute="centerX" id="PvM-6l-L1E"/>
+                                            <constraint firstItem="VHv-rO-bps" firstAttribute="width" secondItem="XXV-3O-t0F" secondAttribute="width" id="QBE-2L-eZ6"/>
+                                            <constraint firstItem="z89-bw-vJq" firstAttribute="centerX" secondItem="XXV-3O-t0F" secondAttribute="centerX" id="VUh-BB-gLv"/>
                                             <constraint firstAttribute="centerX" secondItem="c4y-hn-zXj" secondAttribute="centerX" id="deI-fZ-rTn"/>
+                                            <constraint firstAttribute="centerX" secondItem="XXV-3O-t0F" secondAttribute="centerX" id="j4C-Lt-uKa"/>
+                                            <constraint firstAttribute="centerX" secondItem="VHv-rO-bps" secondAttribute="centerX" id="mRN-Ic-p9t"/>
                                             <constraint firstAttribute="centerY" secondItem="z89-bw-vJq" secondAttribute="centerY" constant="-10" id="nqT-NU-fRa"/>
-                                            <constraint firstAttribute="centerY" secondItem="c4y-hn-zXj" secondAttribute="centerY" id="pc2-h1-y2X"/>
+                                            <constraint firstItem="z89-bw-vJq" firstAttribute="centerY" secondItem="XXV-3O-t0F" secondAttribute="centerY" id="qVJ-HX-cbs"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="pc2-h1-y2X"/>
+                                                <exclude reference="VUh-BB-gLv"/>
+                                                <exclude reference="qVJ-HX-cbs"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -147,7 +181,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="5BZ-8j-Lpg" kind="presentation" id="2om-2m-dQf"/>
+                                                    <segue destination="5BZ-8j-Lpg" kind="presentation" identifier="GoToHome" id="2om-2m-dQf"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -186,9 +220,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BottomConstraint" destination="oKT-CC-6Ki" id="2vP-Y7-dle"/>
                         <outlet property="ConnectFBButton" destination="z89-bw-vJq" id="K4L-cU-ehm"/>
+                        <outlet property="EventCodeField" destination="XXV-3O-t0F" id="EeN-29-tS4"/>
                         <outlet property="LoadingSpinner" destination="c4y-hn-zXj" id="5Oo-Ja-iRl"/>
                         <outlet property="NotNowButton" destination="wA7-To-Pob" id="h8Z-J1-brc"/>
+                        <outlet property="PinField" destination="VHv-rO-bps" id="rmK-ni-uuh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdQ-UP-Dgx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -200,7 +237,7 @@
             <objects>
                 <tableViewController id="P6C-3y-iho" customClass="MenuViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5pZ-3h-ech">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="176"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="176"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection id="9mA-Bs-vv7">
@@ -212,7 +249,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpt-qF-F62">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="43"/>
                                                     <state key="normal" title="Home">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -236,8 +273,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIv-rS-3Jk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
-                                                    <state key="normal" title="Login">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="43"/>
+                                                    <state key="normal" title="Login to Facebook">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -260,7 +297,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp1-w3-ctG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="43"/>
                                                     <state key="normal" title="About">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -284,7 +321,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ig-27-blK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="43"/>
                                                     <state key="normal" title="Help">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -309,10 +346,10 @@
                             <outlet property="delegate" destination="P6C-3y-iho" id="A4E-6m-FIX"/>
                         </connections>
                     </tableView>
-                    <value key="contentSizeForViewInPopover" type="size" width="100" height="176"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="176"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="150" height="176"/>
+                    <size key="freeformSize" width="200" height="176"/>
                     <connections>
                         <outlet property="loginButton" destination="KIv-rS-3Jk" id="IEK-Bw-ty3"/>
                     </connections>
@@ -479,7 +516,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5V-NR-2KV">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5V-NR-2KV">
                                                     <rect key="frame" x="182" y="765" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="L1S-GJ-zkY"/>
@@ -492,7 +529,7 @@
                                                         <action selector="PostDislikeButtonTouch:" destination="ECH-yo-eYu" eventType="touchUpInside" id="NAZ-P4-zXK"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYz-fl-B0B">
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYz-fl-B0B">
                                                     <rect key="frame" x="217" y="770" width="13" height="14"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

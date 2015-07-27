@@ -127,8 +127,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 self.imageCache[urlString!] = image
                                 
                                 // Get the ratio of image size
-                                let ratio = image!.size.height / image!.size.width
-                                println(ratio)
+//                                let ratio = image!.size.height / image!.size.width
+//                                println(ratio)
                                 
                                 // Update the cell
                                 dispatch_async(dispatch_get_main_queue(), {
