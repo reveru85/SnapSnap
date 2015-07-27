@@ -8,6 +8,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+            <string>Lato-Light</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -97,9 +101,31 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWF-sh-TzZ" userLabel="View3">
                                 <rect key="frame" x="0.0" y="407" width="600" height="193"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Kk-OMY" userLabel="View31">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Kk-OMY" userLabel="View31">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="96"/>
                                         <subviews>
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
+                                                <rect key="frame" x="150" y="0.0" width="300" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Ebo-2c-zTL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="1OG-Oe-avg" id="Y7H-dv-BdG"/>
+                                                </connections>
+                                            </textField>
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
+                                                <rect key="frame" x="150" y="55" width="300" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="G3x-b0-v0U"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="go" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="1OG-Oe-avg" id="0bz-By-Fp0"/>
+                                                </connections>
+                                            </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z89-bw-vJq">
                                                 <rect key="frame" x="202" y="29" width="195" height="58"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
@@ -123,15 +149,23 @@
                                             </activityIndicatorView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="VHv-rO-bps" firstAttribute="top" secondItem="XXV-3O-t0F" secondAttribute="bottom" constant="15" id="0EI-Xz-6Vh"/>
                                             <constraint firstItem="c4y-hn-zXj" firstAttribute="centerY" secondItem="z89-bw-vJq" secondAttribute="centerY" id="84P-Xl-2Gs"/>
+                                            <constraint firstItem="XXV-3O-t0F" firstAttribute="top" secondItem="gUJ-Kk-OMY" secondAttribute="top" id="Hlh-Fl-uDL"/>
+                                            <constraint firstAttribute="width" secondItem="XXV-3O-t0F" secondAttribute="width" multiplier="2:1" id="ILV-cB-RAn"/>
                                             <constraint firstAttribute="centerX" secondItem="z89-bw-vJq" secondAttribute="centerX" id="PvM-6l-L1E"/>
+                                            <constraint firstItem="VHv-rO-bps" firstAttribute="width" secondItem="XXV-3O-t0F" secondAttribute="width" id="QBE-2L-eZ6"/>
+                                            <constraint firstItem="z89-bw-vJq" firstAttribute="centerX" secondItem="XXV-3O-t0F" secondAttribute="centerX" id="VUh-BB-gLv"/>
                                             <constraint firstAttribute="centerX" secondItem="c4y-hn-zXj" secondAttribute="centerX" id="deI-fZ-rTn"/>
+                                            <constraint firstAttribute="centerX" secondItem="XXV-3O-t0F" secondAttribute="centerX" id="j4C-Lt-uKa"/>
+                                            <constraint firstAttribute="centerX" secondItem="VHv-rO-bps" secondAttribute="centerX" id="mRN-Ic-p9t"/>
                                             <constraint firstAttribute="centerY" secondItem="z89-bw-vJq" secondAttribute="centerY" constant="-10" id="nqT-NU-fRa"/>
-                                            <constraint firstAttribute="centerY" secondItem="c4y-hn-zXj" secondAttribute="centerY" id="pc2-h1-y2X"/>
+                                            <constraint firstItem="z89-bw-vJq" firstAttribute="centerY" secondItem="XXV-3O-t0F" secondAttribute="centerY" id="qVJ-HX-cbs"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="pc2-h1-y2X"/>
+                                                <exclude reference="VUh-BB-gLv"/>
+                                                <exclude reference="qVJ-HX-cbs"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -147,7 +181,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="5BZ-8j-Lpg" kind="presentation" id="2om-2m-dQf"/>
+                                                    <segue destination="5BZ-8j-Lpg" kind="presentation" identifier="GoToHome" id="2om-2m-dQf"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -186,9 +220,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BottomConstraint" destination="oKT-CC-6Ki" id="2vP-Y7-dle"/>
                         <outlet property="ConnectFBButton" destination="z89-bw-vJq" id="K4L-cU-ehm"/>
+                        <outlet property="EventCodeField" destination="XXV-3O-t0F" id="EeN-29-tS4"/>
                         <outlet property="LoadingSpinner" destination="c4y-hn-zXj" id="5Oo-Ja-iRl"/>
                         <outlet property="NotNowButton" destination="wA7-To-Pob" id="h8Z-J1-brc"/>
+                        <outlet property="PinField" destination="VHv-rO-bps" id="rmK-ni-uuh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdQ-UP-Dgx" userLabel="First Responder" sceneMemberID="firstResponder"/>

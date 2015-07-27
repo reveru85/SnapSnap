@@ -8,11 +8,14 @@
 import UIKit
 import CoreLocation
 
-class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
+class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var LoadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var NotNowButton: UIButton!
     @IBOutlet weak var ConnectFBButton: UIButton!
+    @IBOutlet weak var EventCodeField: UITextField!
+    @IBOutlet weak var PinField: UITextField!
+    @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
     
     var userID = ""
     var fbId = ""
@@ -36,6 +39,9 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
         loginView.hidden = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -93,8 +99,10 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func userIDLoadComplete() {
         LoadingSpinner.hidden = true
-        ConnectFBButton.hidden = false
-        NotNowButton.hidden = false
+//        ConnectFBButton.hidden = false
+//        NotNowButton.hidden = false
+        EventCodeField.hidden = false
+        PinField.hidden = false
         
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
@@ -201,6 +209,106 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
             }
         })
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField === EventCodeField) {
+            PinField.becomeFirstResponder()
+        } else if (textField === PinField) {
+            textField.resignFirstResponder()
+            //do submit event and pin event
+            SubmitEventPin()
+        }
+        
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        // Create a button bar for the number pad
+        let keyboardDoneButtonView = UIToolbar()
+        keyboardDoneButtonView.sizeToFit()
+        
+        // Setup the buttons to be put in the system.
+        var titlestr = "Done"
+        if (textField === EventCodeField) {
+            titlestr = "Next"
+        } else if (textField === PinField) {
+            titlestr = "Go"
+        }
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let item = UIBarButtonItem(title: titlestr, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow") )
+        var toolbarButtons = [flexSpace, item]
+        
+        //Put the buttons into the ToolBar and display the tool bar
+        keyboardDoneButtonView.setItems(toolbarButtons, animated: false)
+        textField.inputAccessoryView = keyboardDoneButtonView
+        
+        return true
+    }
+    
+    func endEditingNow(){
+        self.view.endEditing(true)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        //nothing fancy here, just trigger the resign() method to close the keyboard.
+//        self.resignFirstResponder()
+        self.textFieldShouldReturn(textField)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        let isShowing = notification.name == UIKeyboardWillShowNotification
+        
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
+            let endFrameHeight = endFrame?.size.height ?? 0.0
+            let duration:NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.unsignedLongValue ?? UIViewAnimationOptions.CurveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            
+            if isShowing {
+                self.BottomConstraint?.constant = endFrameHeight
+            } else {
+                self.BottomConstraint?.constant = 0.0
+            }
+            
+            UIView.animateWithDuration(duration,
+                delay: NSTimeInterval(0),
+                options: animationCurve,
+                animations: { self.view.layoutIfNeeded() },
+                completion: nil)
+        }
+    }
+    
+    func SubmitEventPin() {
+        
+        let eventStr = EventCodeField.text
+        let pinStr = PinField.text
+        
+        //disable fields and show spinner
+        EventCodeField.hidden = true
+        PinField.hidden = true
+        LoadingSpinner.hidden = false
+        
+        //send eventcode and pin to server
+        println(eventStr)
+        println(pinStr)
+        
+        //if unsuccessful
+        EventCodeField.hidden = false
+        PinField.hidden = false
+        LoadingSpinner.hidden = true
+        
+        //if successful
+        EventCodeField.text = ""
+        PinField.text = ""
+        EventCodeField.hidden = false
+        PinField.hidden = false
+        LoadingSpinner.hidden = true
+        self.performSegueWithIdentifier("GoToHome", sender:self)
+        
     }
 }
 
