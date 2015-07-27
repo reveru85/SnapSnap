@@ -25,9 +25,9 @@ class MenuViewController: UITableViewController {
         login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
         
         if login {
-            loginButton.setTitle("Logout", forState: UIControlState.allZeros)
+            loginButton.setTitle("Logout from Facebook", forState: UIControlState.allZeros)
         } else {
-            loginButton.setTitle("Login", forState: UIControlState.allZeros)
+            loginButton.setTitle("Login to Facebook", forState: UIControlState.allZeros)
         }
     }
     

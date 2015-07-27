@@ -197,15 +197,6 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
                         var commentsInt = self.currentCellView.PostCommentCount.text?.toInt()
                         commentsInt!++
                         self.currentCellView.PostCommentCount.text = String(commentsInt!)
-                    } else if self.parentView is TrendingViewController {
-                        
-                        // Update post entry variable in TrendingViewController (backend data)
-                        (self.parentView as! TrendingViewController).data.incrementComment(self.postId)
-                        
-                        // Update post cell display in TrendingViewController (frontend display)
-                        var commentsInt = self.currentCellView.PostCommentCount.text?.toInt()
-                        commentsInt!++
-                        self.currentCellView.PostCommentCount.text = String(commentsInt!)
                     }
                 }
             }
