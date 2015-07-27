@@ -224,37 +224,41 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        // Create a button bar for the number pad
-        let keyboardDoneButtonView = UIToolbar()
-        keyboardDoneButtonView.sizeToFit()
         
-        // Setup the buttons to be put in the system.
-        var titlestr = "Done"
-        if (textField === EventCodeField) {
-            titlestr = "Next"
-        } else if (textField === PinField) {
-            titlestr = "Go"
+        if (textField === PinField) {
+        
+            // Create a button bar for the number pad
+            let keyboardDoneButtonView = UIToolbar()
+            keyboardDoneButtonView.sizeToFit()
+            
+            // Setup the buttons to be put in the system.
+//            var titlestr = "Done"
+//            if (textField === EventCodeField) {
+//                titlestr = "Next"
+//            } else if (textField === PinField) {
+//                titlestr = "Go"
+//            }
+            
+            let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+            let item = UIBarButtonItem(title: "Go", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow") )
+            var toolbarButtons = [flexSpace, item]
+            
+            //Put the buttons into the ToolBar and display the tool bar
+            keyboardDoneButtonView.setItems(toolbarButtons, animated: false)
+            textField.inputAccessoryView = keyboardDoneButtonView
         }
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let item = UIBarButtonItem(title: titlestr, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow") )
-        var toolbarButtons = [flexSpace, item]
-        
-        //Put the buttons into the ToolBar and display the tool bar
-        keyboardDoneButtonView.setItems(toolbarButtons, animated: false)
-        textField.inputAccessoryView = keyboardDoneButtonView
         
         return true
     }
     
     func endEditingNow(){
-        self.view.endEditing(true)
+        self.textFieldShouldReturn(PinField)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         //nothing fancy here, just trigger the resign() method to close the keyboard.
-//        self.resignFirstResponder()
-        self.textFieldShouldReturn(textField)
+        self.resignFirstResponder()
+//        self.textFieldShouldReturn(textField)
     }
     
     func keyboardNotification(notification: NSNotification) {
