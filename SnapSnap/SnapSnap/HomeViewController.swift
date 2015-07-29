@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let postCellId = "PostCell"
     let data = PostData()
     let userID = (UIApplication.sharedApplication().delegate as! AppDelegate).userID
+    let albumID = (UIApplication.sharedApplication().delegate as! AppDelegate).albumID
     var lastPostID = ""
     var refreshControl: UIRefreshControl!
     var imageCache = [String:UIImage]()
@@ -55,7 +56,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         HomeTableView.rowHeight = UITableViewAutomaticDimension
         
         // Get first load posts
-        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + userID!
+        var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + albumID! + "/" + userID!
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -156,7 +157,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.PostHashtags.text = post.hash_tag
         cell.PostCommentCount.text = post.total_comments
         cell.PostLikeCount.text = post.total_likes
-        cell.PostDislikeCount.text = post.total_dislikes
         cell.PostId = post.post_id
         cell.UserId = self.userID
         cell.IsLike = post.is_like
@@ -167,12 +167,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
         } else {
             cell.PostLikeButton.imageView?.image = UIImage(named:"ic_like")
-        }
-        
-        if post.is_dislike {
-            cell.PostDislikeButton.imageView?.image = UIImage(named:"ic_dislike_on")
-        } else {
-            cell.PostDislikeButton.imageView?.image = UIImage(named:"ic_dislike")
         }
         
         //        println(post.display_order)

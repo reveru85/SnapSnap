@@ -18,6 +18,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
     
     var userID = ""
+    var albumID = ""
     var fbId = ""
     var firstName = ""
     var lastName = ""
@@ -300,19 +301,33 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         println(eventStr)
         println(pinStr)
         
-        //if unsuccessful
-        EventCodeField.hidden = false
-        PinField.hidden = false
-        LoadingSpinner.hidden = true
+        var urlString = "http://devsnap.snapsnap.com.sg/index.php/album/verify/" + eventStr + "/" + pinStr
         
-        //if successful
-        EventCodeField.text = ""
-        PinField.text = ""
-        EventCodeField.hidden = false
-        PinField.hidden = false
-        LoadingSpinner.hidden = true
-        self.performSegueWithIdentifier("GoToHome", sender:self)
-        
+        // Get UserID from server based on deviceID's hash
+        var url = NSURL(string: urlString)
+        var request = NSURLRequest(URL: url!)
+        let queue: NSOperationQueue = NSOperationQueue.mainQueue()
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            if data != nil {
+                var album = JSON(data: data!)
+                self.albumID = album["id"].string!
+                (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
+                
+                //if successful
+                self.EventCodeField.text = ""
+                self.PinField.text = ""
+                self.EventCodeField.hidden = false
+                self.PinField.hidden = false
+                self.LoadingSpinner.hidden = true
+                self.performSegueWithIdentifier("GoToHome", sender:self)
+            }
+            else {
+                //if unsuccessful
+                self.EventCodeField.hidden = false
+                self.PinField.hidden = false
+                self.LoadingSpinner.hidden = true
+            }
+        })
     }
 }
 

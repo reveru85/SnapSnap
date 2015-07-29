@@ -83,53 +83,6 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func PostDislikeButtonTouch(sender: UIButton) {
-        
-        if parentView is HomeViewController {
-        
-            if IsLike == false {
-                
-                // Dislike post API
-                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_dislike/" + PostId! + "/" + UserId!
-                let url = NSURL(string: urlString)
-                var request = NSURLRequest(URL: url!)
-                let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-                NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                    if data != nil {
-                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        
-                        if str == "completed" {
-                            // Update dislike image
-                            self.PostDislikeButton.imageView?.image = UIImage(named:"ic_dislike_on")
-                            self.IsDislike = true;
-                            
-                            // Update post entry variable in HomeViewController (backend data)
-                            (self.parentView as! HomeViewController).data.dislikePost(self.PostId!)
-                            
-                            // Update post cell display in HomeViewController (frontend display)
-                            var dislikesInt = self.PostDislikeCount.text?.toInt()
-                            dislikesInt!++
-                            self.PostDislikeCount.text = String(dislikesInt!)
-                        }
-                        else if str == "disliked" {
-                            self.PostDislikeButton.imageView?.image = UIImage(named:"ic_dislike_on")
-                            
-                            var dislikeAlert = UIAlertController(title: "", message: "You have disliked the post.", preferredStyle: UIAlertControllerStyle.Alert)
-                            dislikeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                            (self.parentView as! HomeViewController).presentViewController(dislikeAlert, animated: true, completion: nil)
-                        }
-                    }
-                })
-            }
-            else {
-                
-                var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
-                likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
-            }
-        }
-    }
-    
     @IBAction func PostCommentButtonTouch(sender: UIButton) {
         
         if parentView is HomeViewController {

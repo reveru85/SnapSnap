@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     internal var userID: String?
+    internal var albumID: String?
     internal var isFBLogin: Bool?
     internal var firstPostID : String?
     internal var homeView: HomeViewController?
