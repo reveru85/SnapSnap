@@ -117,7 +117,7 @@ class PostTableViewCell: UITableViewCell {
                 NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
                     if data != nil {
                         var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println(str)
+                        
                         if str == "completed" {
                             // Remove post from post data in code behind and refresh view
                             (self.parentView as! HomeViewController).data.removeEntry(self.PostId)
@@ -144,8 +144,6 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func ImageTouch(sender: AnyObject) {
-        println("Touch!")
-        
         if parentView is HomeViewController {
             (parentView as! HomeViewController).selectedPostCellId = PostId
             (parentView as! HomeViewController).selectedPostCell = self

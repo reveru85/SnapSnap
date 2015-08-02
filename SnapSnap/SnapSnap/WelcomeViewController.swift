@@ -318,8 +318,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                 
                 let album = JSON(data: data!)
                 
-                if album {
-                    self.albumID = album["id"].string!
+                if let albumID = album["id"].string {
+                    self.albumID = albumID
                     (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
                     
                     //if successful

@@ -274,10 +274,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             vc.option = option
         }
         else if (segue.identifier == "ShowImageViewer") {
-            println("lala")
             
             var vc = segue.destinationViewController as! ImageViewController
-            
             vc.image = self.selectedPostCell.PostImage.image
         }
     }
