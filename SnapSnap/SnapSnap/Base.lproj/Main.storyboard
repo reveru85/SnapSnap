@@ -198,6 +198,64 @@
             </objects>
             <point key="canvasLocation" x="-389" y="-1681"/>
         </scene>
+        <!--Image View Controller-->
+        <scene sceneID="2yN-v8-Rrr">
+            <objects>
+                <viewController id="LEE-Ku-89a" customClass="ImageViewController" customModule="SnapSnap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HeV-WI-EQk"/>
+                        <viewControllerLayoutGuide type="bottom" id="2nt-Le-AJt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ykm-rM-P7Y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ppc-H9-It2">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_default" translatesAutoresizingMaskIntoConstraints="NO" id="5ZZ-Fg-YBb">
+                                        <rect key="frame" x="0.0" y="-10" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="5ZZ-Fg-YBb" secondAttribute="centerY" id="2Bv-EV-qxe"/>
+                                    <constraint firstAttribute="centerX" secondItem="5ZZ-Fg-YBb" secondAttribute="centerX" id="gDG-1j-5Wf"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="LEE-Ku-89a" id="n64-o5-fOs"/>
+                                </connections>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewG-fg-V7b">
+                                <rect key="frame" x="552" y="28" width="40" height="30"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButtonTouch:" destination="LEE-Ku-89a" eventType="touchUpInside" id="tnn-Cn-1yb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2nt-Le-AJt" firstAttribute="top" secondItem="Ppc-H9-It2" secondAttribute="bottom" id="0Qe-tm-vsC"/>
+                            <constraint firstAttribute="height" secondItem="5ZZ-Fg-YBb" secondAttribute="height" id="7ga-O9-oPx"/>
+                            <constraint firstItem="ewG-fg-V7b" firstAttribute="top" secondItem="HeV-WI-EQk" secondAttribute="bottom" constant="8" id="Ajw-Mx-QU7"/>
+                            <constraint firstAttribute="trailing" secondItem="Ppc-H9-It2" secondAttribute="trailing" id="VwA-rX-tD8"/>
+                            <constraint firstAttribute="width" secondItem="5ZZ-Fg-YBb" secondAttribute="width" id="YNe-8H-gd5"/>
+                            <constraint firstItem="Ppc-H9-It2" firstAttribute="leading" secondItem="ykm-rM-P7Y" secondAttribute="leading" id="sii-A1-EtQ"/>
+                            <constraint firstItem="Ppc-H9-It2" firstAttribute="top" secondItem="HeV-WI-EQk" secondAttribute="bottom" id="y9f-Bm-mWV"/>
+                            <constraint firstAttribute="trailing" secondItem="ewG-fg-V7b" secondAttribute="trailing" constant="8" id="zaS-Dx-XA2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="5ZZ-Fg-YBb" id="NJl-On-cYM"/>
+                        <outlet property="scrollView" destination="Ppc-H9-It2" id="9I6-pF-Sgv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fd3-WB-Z7g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1085" y="-2468"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="HEl-Xa-rcL">
             <objects>
@@ -322,7 +380,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dml-G9-Kgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1551" y="-2490"/>
+            <point key="canvasLocation" x="1601" y="-2680"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="xPL-cX-eIN">
@@ -606,6 +664,11 @@
                                 <segue destination="P6C-3y-iho" kind="popoverPresentation" identifier="menuPopoverSegue" popoverAnchorBarButtonItem="mk4-ev-ARW" id="owN-xk-3fl">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="1SA-PF-xIO">
+                            <connections>
+                                <segue destination="LEE-Ku-89a" kind="presentation" id="VkW-7B-bLj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -22,6 +22,7 @@
 		137894801B4E8B2200B8B7BE /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1378947F1B4E8B2200B8B7BE /* MenuViewController.swift */; };
 		137EAAF11B4EA7F000FB53D0 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137EAAF01B4EA7F000FB53D0 /* WebViewController.swift */; };
 		13B1FC731B2C1F39005FDEFB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B1FC721B2C1F39005FDEFB /* WelcomeViewController.swift */; };
+		13D247121B6913E5003B495A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D247111B6913E5003B495A /* ImageViewController.swift */; };
 		13DE5AA61B5FD53C00CE6CF2 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74669A1B384425009E6891 /* CryptoSwift.framework */; };
 		13DE5AA71B5FD53C00CE6CF2 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74669A1B384425009E6891 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		13DE5AB11B5FD58200CE6CF2 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13DE5AAD1B5FD58200CE6CF2 /* Bolts.framework */; };
@@ -100,6 +101,7 @@
 		1378947F1B4E8B2200B8B7BE /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ../SnapSnap/MenuViewController.swift; sourceTree = "<group>"; };
 		137EAAF01B4EA7F000FB53D0 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = ../SnapSnap/WebViewController.swift; sourceTree = "<group>"; };
 		13B1FC721B2C1F39005FDEFB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ../SnapSnap/WelcomeViewController.swift; sourceTree = "<group>"; };
+		13D247111B6913E5003B495A /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		13DE5AAD1B5FD58200CE6CF2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../../Documents/FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
 		13DE5AAE1B5FD58200CE6CF2 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		13DE5AAF1B5FD58200CE6CF2 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				13660C9A1B47A40A00A3D8D3 /* CommentsViewController.swift */,
 				4309A2AF1B61048000DB9FD4 /* CustomDeviceQuery.swift */,
 				2D079BF21B29C8AE004D141D /* HomeViewController.swift */,
+				13D247111B6913E5003B495A /* ImageViewController.swift */,
 				1378947F1B4E8B2200B8B7BE /* MenuViewController.swift */,
 				1344BFED1B417799004F798F /* NewPostViewController.swift */,
 				2DEAC3B81B4EBE80001AF8A3 /* OneShotLocationManager.swift */,
@@ -382,6 +385,7 @@
 				2D079BF11B29C8AE004D141D /* AppDelegate.swift in Sources */,
 				1344BFEE1B417799004F798F /* NewPostViewController.swift in Sources */,
 				13660C9F1B47AC4100A3D8D3 /* CommentsTableViewCell.swift in Sources */,
+				13D247121B6913E5003B495A /* ImageViewController.swift in Sources */,
 				134429D41B2EF72C00C56968 /* PostTableViewCell.swift in Sources */,
 				13B1FC731B2C1F39005FDEFB /* WelcomeViewController.swift in Sources */,
 				13660CA11B47CD6400A3D8D3 /* CommentData.swift in Sources */,
