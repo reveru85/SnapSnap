@@ -142,4 +142,15 @@ class PostTableViewCell: UITableViewCell {
         
         parentView.presentViewController(optionMenu, animated: true, completion: nil)
     }
+    
+    @IBAction func ImageTouch(sender: AnyObject) {
+        println("Touch!")
+        
+        if parentView is HomeViewController {
+            (parentView as! HomeViewController).selectedPostCellId = PostId
+            (parentView as! HomeViewController).selectedPostCell = self
+        }
+        
+        parentView.performSegueWithIdentifier("ShowImageViewer", sender:self)
+    }
 }
