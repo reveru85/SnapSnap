@@ -11,8 +11,8 @@ import CoreLocation
 class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var LoadingSpinner: UIActivityIndicatorView!
-    @IBOutlet weak var NotNowButton: UIButton!
-    @IBOutlet weak var ConnectFBButton: UIButton!
+//    @IBOutlet weak var NotNowButton: UIButton!
+//    @IBOutlet weak var ConnectFBButton: UIButton!
     @IBOutlet weak var EventCodeField: UITextField!
     @IBOutlet weak var PinField: UITextField!
     @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
@@ -32,7 +32,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        ConnectFBButton.layer.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.3).CGColor
+//        ConnectFBButton.layer.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.3).CGColor
         
 //        self.view.addSubview(loginView)
         loginView.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 100)
@@ -50,11 +50,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         var login = false
         login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
         if login {
-            NotNowButton.setTitle("Continue", forState: UIControlState.allZeros)
-            ConnectFBButton.setTitle("Logout from Facebook", forState: UIControlState.allZeros)
+//            NotNowButton.setTitle("Continue", forState: UIControlState.allZeros)
+//            ConnectFBButton.setTitle("Logout from Facebook", forState: UIControlState.allZeros)
         } else {
-            NotNowButton.setTitle("Not now", forState: UIControlState.allZeros)
-            ConnectFBButton.setTitle("Connect with Facebook", forState: UIControlState.allZeros)
+//            NotNowButton.setTitle("Not now", forState: UIControlState.allZeros)
+//            ConnectFBButton.setTitle("Connect with Facebook", forState: UIControlState.allZeros)
         }
     }
     
@@ -144,8 +144,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
 
         (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin = false
-        NotNowButton.setTitle("Not now", forState: UIControlState.allZeros)
-        ConnectFBButton.setTitle("Connect with Facebook", forState: UIControlState.allZeros)
+//        NotNowButton.setTitle("Not now", forState: UIControlState.allZeros)
+//        ConnectFBButton.setTitle("Connect with Facebook", forState: UIControlState.allZeros)
         
         if (UIApplication.sharedApplication().delegate as! AppDelegate).homeView != nil {
             (UIApplication.sharedApplication().delegate as! AppDelegate).homeView?.dismissViewControllerAnimated(true, completion: nil)
