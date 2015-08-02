@@ -83,6 +83,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        flushCache()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,6 +197,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 imageCache.removeAtIndex(imageCache.startIndex)
             }
         }
+    }
+    
+    func flushCache() {
+        imageCache.removeAll(keepCapacity: false)
     }
     
     func getPreviousPosts(postID : String?) {
