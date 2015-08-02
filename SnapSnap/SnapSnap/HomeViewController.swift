@@ -126,10 +126,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 // Convert the downloaded data in to a UIImage object and cache
                                 let image = UIImage(data: data)
                                 self.imageCache[urlString!] = image
-                                
-                                // Get the ratio of image size
-//                                let ratio = image!.size.height / image!.size.width
-//                                println(ratio)
+                                self.trimCache()
                                 
                                 // Update the cell
                                 dispatch_async(dispatch_get_main_queue(), {
@@ -138,8 +135,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                         (cellToUpdate as! PostTableViewCell).PostImage.image = image
                                         //might cause an error if image is loaded *after* cell has been reused
                                         //https://stavash.wordpress.com/2012/12/14/advanced-issues-asynchronous-uitableviewcell-content-loading-done-right/
-                                        
-//                                        println(cellToUpdate.frame.height)
                                     }
                                 })
                             }
@@ -160,7 +155,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.PostId = post.post_id
         cell.UserId = self.userID
         cell.IsLike = post.is_like
-        cell.IsDislike = post.is_dislike
         cell.parentView = self
         
         if post.is_like {
@@ -196,10 +190,18 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    func trimCache() {
+        if imageCache.count > 10 {
+            for index in 0...4 {
+                imageCache.removeAtIndex(imageCache.startIndex)
+            }
+        }
+    }
+    
     func getPreviousPosts(postID : String?) {
         
         // Get previous posts based on oldest post
-        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_previous_post/" + postID! + "/" + userID!
+        var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/dphodto_previous_post/" + albumID! + "/" + postID! + "/" + userID!
         
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
@@ -221,7 +223,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func getNewPosts() {
         
         // Get new posts based on newest post
-        var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + self.data.entries.first!.post_id! + "/" + userID!
+        var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + albumID! + "/" + self.data.entries.first!.post_id! + "/" + userID!
         
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)

@@ -21,6 +21,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cameraPreview: UIImageView!
     var newImage: UIImage?
     let userID = (UIApplication.sharedApplication().delegate as! AppDelegate).userID
+    let albumID = (UIApplication.sharedApplication().delegate as! AppDelegate).albumID
     let homeView = (UIApplication.sharedApplication().delegate as! AppDelegate).homeView
     
     // Location functionality
@@ -120,7 +121,26 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
             isLogin = "0"
         }
         
-        var postData1 = "jpegImageEncoded=" + newBase64String + "&latestPostId=" + firstPostId!
+        /*
+        jpegImageEncoded [compulsory]
+        albumId[compulsory]
+        latestPostId [compulsory] => Post ID / Empty String if there is no latest post
+        userId [compulsory] => User ID
+        longitude [optional] => Longitude value
+        latitude [optional] => Latitude value
+        timezone [can be empty at this moment]
+        title [optional] => Title of post
+        description [can be empty at this moment]
+        hashtag [optional] => Hash tag / comment
+        location [optional] => Address
+        locationCategory1 [optional] => Country Code
+        locationCategory2 [optional] => State
+        locationCategory3 [optional] => City
+        locationCategory4 [optional] => can be empty at this moment
+        isLogin [compulsory] => 0 or 1
+        */
+        
+        var postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId!
         var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&title=" + titleField.text + "&hashtag=" + hashtagField.text
         var postData3 = "&latitude=" + self.latitude + "&longitude=" + self.longitude + "&location=" + self.address
         var postData4 = "&locationCategory1=" + self.country + "&locationCategory2=" + self.administrativeArea
@@ -128,7 +148,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         
         var postData = postData1 + postData2 + postData3 + postData4 + postData5
         
-        let urlPath: String = "http://dev.snapsnap.com.sg/index.php/dphodto/dphodto_image_post"
+        let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/dphodto/dphodto_image_post"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()

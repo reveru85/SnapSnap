@@ -31,7 +31,6 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
-            <string>Lato-Regular</string>
         </mutableArray>
         <mutableArray key="PoetsenOne-Regular.otf">
             <string>PoetsenOne-Regular</string>
@@ -482,25 +481,6 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5V-NR-2KV">
-                                                    <rect key="frame" x="182" y="765" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="L1S-GJ-zkY"/>
-                                                        <constraint firstAttribute="width" secondItem="y5V-NR-2KV" secondAttribute="height" multiplier="1:1" id="xYU-tv-Le5"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Dislike" image="ic_dislike">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="PostDislikeButtonTouch:" destination="ECH-yo-eYu" eventType="touchUpInside" id="NAZ-P4-zXK"/>
-                                                    </connections>
-                                                </button>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYz-fl-B0B">
-                                                    <rect key="frame" x="217" y="770" width="13" height="14"/>
-                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCA-4Y-R3u">
                                                     <rect key="frame" x="555" y="765" width="25" height="25"/>
                                                     <constraints>
@@ -528,17 +508,14 @@
                                                 <constraint firstAttribute="bottom" secondItem="AjY-fe-mcE" secondAttribute="bottom" constant="14" id="7vr-Qo-wlo"/>
                                                 <constraint firstItem="ZhB-XW-l7N" firstAttribute="leading" secondItem="AjY-fe-mcE" secondAttribute="trailing" constant="10" id="9K2-St-xAy"/>
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" id="Axs-xx-JwT"/>
-                                                <constraint firstItem="GJF-m1-Vdz" firstAttribute="centerY" secondItem="y5V-NR-2KV" secondAttribute="centerY" id="HN5-xg-mxn"/>
                                                 <constraint firstItem="QA4-4D-ia4" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="HlG-Mc-uxt"/>
                                                 <constraint firstItem="SEt-zz-HpX" firstAttribute="leading" secondItem="sHe-4C-3nx" secondAttribute="trailing" constant="10" id="K2G-Hd-JjI"/>
                                                 <constraint firstAttribute="trailing" secondItem="OTL-G8-FoT" secondAttribute="trailing" id="L60-6s-ruY"/>
                                                 <constraint firstItem="keA-0I-jD8" firstAttribute="top" secondItem="Pbp-3R-3vK" secondAttribute="bottom" constant="3" id="MVv-zi-Qx2"/>
-                                                <constraint firstItem="MYz-fl-B0B" firstAttribute="leading" secondItem="y5V-NR-2KV" secondAttribute="trailing" constant="10" id="Ndh-Uj-Llg"/>
                                                 <constraint firstItem="Gzq-7j-zQp" firstAttribute="leading" secondItem="keA-0I-jD8" secondAttribute="trailing" constant="2" id="Skl-FM-p17"/>
                                                 <constraint firstItem="MJO-9Y-nez" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="TGZ-fN-RNv"/>
                                                 <constraint firstItem="SEt-zz-HpX" firstAttribute="leading" secondItem="keA-0I-jD8" secondAttribute="leading" id="Xko-Jn-Qqw"/>
                                                 <constraint firstItem="i7d-LM-Iid" firstAttribute="centerY" secondItem="ZhB-XW-l7N" secondAttribute="centerY" id="ZRt-Cg-IJT"/>
-                                                <constraint firstItem="y5V-NR-2KV" firstAttribute="leading" secondItem="GJF-m1-Vdz" secondAttribute="trailing" constant="20" id="Zlp-vI-edo"/>
                                                 <constraint firstItem="SEt-zz-HpX" firstAttribute="bottom" secondItem="Pbp-3R-3vK" secondAttribute="top" id="aOG-hz-Y28"/>
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="top" secondItem="Gzq-7j-zQp" secondAttribute="bottom" constant="10" id="ag9-oC-cPD"/>
                                                 <constraint firstItem="AjY-fe-mcE" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="chm-mD-k4k"/>
@@ -548,7 +525,6 @@
                                                 <constraint firstItem="i7d-LM-Iid" firstAttribute="leading" secondItem="ZhB-XW-l7N" secondAttribute="trailing" constant="20" id="j4u-Sx-IU1"/>
                                                 <constraint firstItem="AjY-fe-mcE" firstAttribute="top" secondItem="MJO-9Y-nez" secondAttribute="bottom" constant="20" id="mFt-lR-4IX"/>
                                                 <constraint firstItem="sHe-4C-3nx" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="maA-jP-Fko"/>
-                                                <constraint firstItem="y5V-NR-2KV" firstAttribute="centerY" secondItem="MYz-fl-B0B" secondAttribute="centerY" id="mug-9E-cfG"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gzq-7j-zQp" secondAttribute="trailing" constant="20" id="muo-Dh-vsd"/>
                                                 <constraint firstItem="ZhB-XW-l7N" firstAttribute="centerY" secondItem="AjY-fe-mcE" secondAttribute="centerY" id="nvZ-By-sA4"/>
                                                 <constraint firstItem="Gzq-7j-zQp" firstAttribute="top" secondItem="Pbp-3R-3vK" secondAttribute="bottom" id="q8h-e5-g77"/>
@@ -561,8 +537,6 @@
                                             <outlet property="PostCommentButton" destination="AjY-fe-mcE" id="8V3-Dj-kdP"/>
                                             <outlet property="PostCommentCount" destination="ZhB-XW-l7N" id="a7M-DA-Vmf"/>
                                             <outlet property="PostDateTime" destination="QA4-4D-ia4" id="kvJ-kl-s9D"/>
-                                            <outlet property="PostDislikeButton" destination="y5V-NR-2KV" id="BCc-fI-4bk"/>
-                                            <outlet property="PostDislikeCount" destination="MYz-fl-B0B" id="v55-m6-ubd"/>
                                             <outlet property="PostHashtags" destination="MJO-9Y-nez" id="HBY-O9-l0s"/>
                                             <outlet property="PostImage" destination="OTL-G8-FoT" id="vfH-Nt-XNQ"/>
                                             <outlet property="PostLikeButton" destination="i7d-LM-Iid" id="lWl-zA-ve4"/>
@@ -1002,7 +976,6 @@
     <resources>
         <image name="ic_comment" width="300" height="300"/>
         <image name="ic_comment_send" width="100" height="100"/>
-        <image name="ic_dislike" width="300" height="300"/>
         <image name="ic_flag" width="100" height="100"/>
         <image name="ic_home_on" width="25" height="22"/>
         <image name="ic_like" width="300" height="300"/>

@@ -20,12 +20,9 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var PostCommentCount: UILabel!
     @IBOutlet weak var PostLikeButton: UIButton!
     @IBOutlet weak var PostLikeCount: UILabel!
-    @IBOutlet weak var PostDislikeButton: UIButton!
-    @IBOutlet weak var PostDislikeCount: UILabel!
     var PostId: String!
     var UserId: String!
     var IsLike: Bool!
-    var IsDislike: Bool!
     var parentView: UIViewController!
     
     override func awakeFromNib() {
@@ -39,47 +36,38 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func PostLikeButtonTouch(sender: UIButton) {
         
         if parentView is HomeViewController {
-            
-            if IsDislike == false {
                 
-                // Like post API
-                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
-                let url = NSURL(string: urlString)
-                var request = NSURLRequest(URL: url!)
-                let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-                NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                    if data != nil {
-                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+            // Like post API
+            var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
+            let url = NSURL(string: urlString)
+            var request = NSURLRequest(URL: url!)
+            let queue: NSOperationQueue = NSOperationQueue.mainQueue()
+            NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                if data != nil {
+                    var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    
+                    if str == "completed" {
+                        // Update immediate UI
+                        self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
+                        self.IsLike = true;
                         
-                        if str == "completed" {
-                            // Update immediate UI
-                            self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
-                            self.IsLike = true;
-                            
-                            // Update post entry variable in HomeViewController (backend data)
-                            (self.parentView as! HomeViewController).data.likePost(self.PostId!)
-                            
-                            // Update post cell display in HomeViewController (frontend display)
-                            var likesInt = self.PostLikeCount.text?.toInt()
-                            likesInt!++
-                            self.PostLikeCount.text = String(likesInt!)
-                        }
-                        else if str == "liked" {
-                            self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
-                            
-                            var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
-                            likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                            (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
-                        }
+                        // Update post entry variable in HomeViewController (backend data)
+                        (self.parentView as! HomeViewController).data.likePost(self.PostId!)
+                        
+                        // Update post cell display in HomeViewController (frontend display)
+                        var likesInt = self.PostLikeCount.text?.toInt()
+                        likesInt!++
+                        self.PostLikeCount.text = String(likesInt!)
                     }
-                })
-            }
-            else {
-                
-                var dislikeAlert = UIAlertController(title: "", message: "You have disliked the post.", preferredStyle: UIAlertControllerStyle.Alert)
-                dislikeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                (parentView as! HomeViewController).presentViewController(dislikeAlert, animated: true, completion: nil)
-            }
+                    else if str == "liked" {
+                        self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
+                        
+                        var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
+                        likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+                        (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
+                    }
+                }
+            })
         }
     }
     
@@ -122,7 +110,7 @@ class PostTableViewCell: UITableViewCell {
             
             if self.parentView is HomeViewController {
                 
-                var urlString = "http://dev.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
+                var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()

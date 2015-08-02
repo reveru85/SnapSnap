@@ -70,7 +70,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
             let deviceHash = deviceID.md5()
             
-            var urlString = "http://dev.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
+            var urlString = "http://devsnap.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
             
             // Get UserID from server based on deviceID's hash
             var url = NSURL(string: urlString)
@@ -188,7 +188,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         var postData3 = "&timezone=" + String(self.timezone)
         var postData = postData0 + postData1 + postData2 + postData3
         
-        let urlPath: String = "http://dev.snapsnap.com.sg/index.php/user/gegder_user_update"
+        let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/user/gegder_user_update"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -213,9 +213,9 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if (textField === EventCodeField) {
+        if textField == EventCodeField {
             PinField.becomeFirstResponder()
-        } else if (textField === PinField) {
+        } else if textField === PinField {
             textField.resignFirstResponder()
             //do submit event and pin event
             SubmitEventPin()
@@ -226,23 +226,22 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
-        if (textField === PinField) {
+        if textField === PinField {
         
             // Create a button bar for the number pad
             let keyboardDoneButtonView = UIToolbar()
             keyboardDoneButtonView.sizeToFit()
             
-            // Setup the buttons to be put in the system.
-//            var titlestr = "Done"
-//            if (textField === EventCodeField) {
-//                titlestr = "Next"
-//            } else if (textField === PinField) {
-//                titlestr = "Go"
-//            }
-            
             let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-            let item = UIBarButtonItem(title: "Go", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow") )
+            let item = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow"))
             var toolbarButtons = [flexSpace, item]
+            
+            if EventCodeField.text.isEmpty {
+                item.enabled = false
+            }
+            else {
+                item.enabled = true
+            }
             
             //Put the buttons into the ToolBar and display the tool bar
             keyboardDoneButtonView.setItems(toolbarButtons, animated: false)
@@ -289,8 +288,12 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     
     func SubmitEventPin() {
         
-        let eventStr = EventCodeField.text
-        let pinStr = PinField.text
+        var eventStr = EventCodeField.text
+        var pinStr = "000000"
+        
+        if !PinField.text.isEmpty {
+            pinStr = PinField.text
+        }
         
         //disable fields and show spinner
         EventCodeField.hidden = true
@@ -309,23 +312,69 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             if data != nil {
-                var album = JSON(data: data!)
-                self.albumID = album["id"].string!
-                (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
                 
-                //if successful
-                self.EventCodeField.text = ""
-                self.PinField.text = ""
-                self.EventCodeField.hidden = false
-                self.PinField.hidden = false
-                self.LoadingSpinner.hidden = true
-                self.performSegueWithIdentifier("GoToHome", sender:self)
+                //var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                //println(strData)
+                
+                let album = JSON(data: data!)
+                
+                if album {
+                    self.albumID = album["id"].string!
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
+                    
+                    //if successful
+                    self.EventCodeField.text = ""
+                    self.PinField.text = ""
+                    self.EventCodeField.hidden = false
+                    self.PinField.hidden = false
+                    self.LoadingSpinner.hidden = true
+                    self.performSegueWithIdentifier("GoToHome", sender:self)
+                } else {
+                    //if unsuccessful
+                    self.EventCodeField.hidden = false
+                    self.PinField.hidden = false
+                    self.LoadingSpinner.hidden = true
+                    
+                    let animationEvent = CABasicAnimation(keyPath: "position")
+                    animationEvent.duration = 0.06
+                    animationEvent.repeatCount = 3
+                    animationEvent.autoreverses = true
+                    animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
+                    animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
+                    
+                    let animationPIN = CABasicAnimation(keyPath: "position")
+                    animationPIN.duration = 0.06
+                    animationPIN.repeatCount = 3
+                    animationPIN.autoreverses = true
+                    animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
+                    animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
+                    
+                    self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
+                    self.PinField.layer.addAnimation(animationPIN, forKey: "position")
+                }
             }
             else {
                 //if unsuccessful
                 self.EventCodeField.hidden = false
                 self.PinField.hidden = false
                 self.LoadingSpinner.hidden = true
+                
+                let animationEvent = CABasicAnimation(keyPath: "position")
+                animationEvent.duration = 0.06
+                animationEvent.repeatCount = 3
+                animationEvent.autoreverses = true
+                animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
+                animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
+                
+                let animationPIN = CABasicAnimation(keyPath: "position")
+                animationPIN.duration = 0.06
+                animationPIN.repeatCount = 3
+                animationPIN.autoreverses = true
+                animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
+                animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
+                
+                self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
+                self.PinField.layer.addAnimation(animationPIN, forKey: "position")
             }
         })
     }
