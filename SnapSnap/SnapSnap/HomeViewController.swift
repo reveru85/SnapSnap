@@ -277,6 +277,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let vc = segue.destinationViewController as! WebViewController
             vc.option = option
         }
+        else if (segue.identifier == "ShowImageViewer") {
+            println("lala")
+            
+            var vc = segue.destinationViewController as! ImageViewController
+            
+            vc.image = self.selectedPostCell.PostImage.image
+        }
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
