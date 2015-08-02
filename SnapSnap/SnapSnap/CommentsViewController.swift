@@ -111,7 +111,7 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
             let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
             let animationCurveRaw = animationCurveRawNSN?.unsignedLongValue ?? UIViewAnimationOptions.CurveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
-            self.bottomConstraint?.constant = isShowing ? endFrameHeight - 49 : 0.0
+            self.bottomConstraint?.constant = isShowing ? endFrameHeight : 0.0
             //self.bottomConstraint2?.constant = isShowing ? endFrameHeight + 7 - 49 : 7.0
             UIView.animateWithDuration(duration,
                 delay: NSTimeInterval(0),
@@ -160,6 +160,8 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Send comment to server
         var postData = "dphodtoId=" + postId + "&userId=" + userID! + "&comment=" + comment
+        
+        println(userID!)
         
         let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_create"
         var url = NSURL(string: urlPath)

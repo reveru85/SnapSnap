@@ -111,7 +111,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin = true
             
             // Transition to home view
-            self.performSegueWithIdentifier("GoToHome", sender: self)
+            //self.performSegueWithIdentifier("GoToHome", sender: self)
         }
     }
     
@@ -130,6 +130,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             if result.grantedPermissions.contains("public_profile")
             {
                 // Do work
+                println("returning user data")
+                
                 returnUserData()
                 if loginFromWelcomeScreen {
                     self.performSegueWithIdentifier("GoToHome", sender: self)
@@ -148,9 +150,9 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
 //        NotNowButton.setTitle("Not now", forState: UIControlState.allZeros)
 //        ConnectFBButton.setTitle("Connect with Facebook", forState: UIControlState.allZeros)
         
-        if (UIApplication.sharedApplication().delegate as! AppDelegate).homeView != nil {
-            (UIApplication.sharedApplication().delegate as! AppDelegate).homeView?.dismissViewControllerAnimated(true, completion: nil)
-        }
+//        if (UIApplication.sharedApplication().delegate as! AppDelegate).homeView != nil {
+//            (UIApplication.sharedApplication().delegate as! AppDelegate).homeView?.dismissViewControllerAnimated(true, completion: nil)
+//        }
     }
     
     func returnUserData()
@@ -188,7 +190,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         var postData3 = "&timezone=" + String(self.timezone)
         var postData = postData0 + postData1 + postData2 + postData3
         
-        let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/user/gegder_user_update"
+        let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/user/snapsnap_user_update"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -208,6 +210,12 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                 else if str == "not_updated" {
                     println("Profile update failed.")
                 }
+                else {
+                    println(str)
+                }
+            }
+            else {
+                println("data is nil from updateUserData()")
             }
         })
     }
@@ -301,9 +309,6 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         LoadingSpinner.hidden = false
         
         //send eventcode and pin to server
-        println(eventStr)
-        println(pinStr)
-        
         var urlString = "http://devsnap.snapsnap.com.sg/index.php/album/verify/" + eventStr + "/" + pinStr
         
         // Get UserID from server based on deviceID's hash
