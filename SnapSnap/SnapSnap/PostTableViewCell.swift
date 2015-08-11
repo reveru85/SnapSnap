@@ -38,7 +38,7 @@ class PostTableViewCell: UITableViewCell {
         if parentView is HomeViewController {
                 
             // Like post API
-            var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
+            var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
             let url = NSURL(string: urlString)
             var request = NSURLRequest(URL: url!)
             let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -110,7 +110,7 @@ class PostTableViewCell: UITableViewCell {
             
             if self.parentView is HomeViewController {
                 
-                var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
+                var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
                 let url = NSURL(string: urlString)
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()

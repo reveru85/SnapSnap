@@ -70,7 +70,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
             let deviceHash = deviceID.md5()
             
-            var urlString = "http://devsnap.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
+            var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
             
             // Get UserID from server based on deviceID's hash
             var url = NSURL(string: urlString)
@@ -190,7 +190,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         var postData3 = "&timezone=" + String(self.timezone)
         var postData = postData0 + postData1 + postData2 + postData3
         
-        let urlPath: String = "http://devsnap.snapsnap.com.sg/index.php/user/snapsnap_user_update"
+        let urlPath: String = "http://0720backendapi15.snapsnap.com.sg/index.php/user/snapsnap_user_update"
         var url = NSURL(string: urlPath)
         var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
@@ -309,7 +309,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         LoadingSpinner.hidden = false
         
         //send eventcode and pin to server
-        var urlString = "http://devsnap.snapsnap.com.sg/index.php/album/verify/" + eventStr + "/" + pinStr
+        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/album/verify/" + eventStr + "/" + pinStr
         
         // Get UserID from server based on deviceID's hash
         var url = NSURL(string: urlString)

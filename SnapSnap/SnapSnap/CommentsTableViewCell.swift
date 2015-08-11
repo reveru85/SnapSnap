@@ -26,7 +26,7 @@ class CommentsTableViewCell: UITableViewCell {
     
     @IBAction func FlagButtonTouch(sender: UIButton) {
         
-        var urlString = "http://devsnap.snapsnap.com.sg/index.php/dphodto_comment/action_flag_as_inappropriate/" + self.entry.commentId!
+        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/action_flag_as_inappropriate/" + self.entry.commentId!
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
