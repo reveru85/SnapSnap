@@ -77,11 +77,22 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             var request = NSURLRequest(URL: url!)
             let queue: NSOperationQueue = NSOperationQueue.mainQueue()
             NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                if data != nil {
-                    var user = JSON(data: data!)
-                    self.userID = user["id"].string!
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).userID = self.userID
-                    self.userIDLoadComplete()
+                
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if error == nil {
+                        if data != nil {
+                            var user = JSON(data: data!)
+                            self.userID = user["id"].string!
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).userID = self.userID
+                            self.userIDLoadComplete()
+                        }
+                    } else {
+                        println(error)
+                        // Insert action here for updating UI
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
             })
         }
@@ -96,6 +107,37 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         if (segue.identifier == "GoToHome") {
             (UIApplication.sharedApplication().delegate as! AppDelegate).mainTabViewController = segue.destinationViewController as? UITabBarController
         }
+    }
+    
+    func userIDLoadRetry() {
+        let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
+        let deviceHash = deviceID.md5()
+        
+        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
+        
+        // Get UserID from server based on deviceID's hash
+        var url = NSURL(string: urlString)
+        var request = NSURLRequest(URL: url!)
+        let queue: NSOperationQueue = NSOperationQueue.mainQueue()
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            
+            if (response as! NSHTTPURLResponse).statusCode == 200 {
+                if error == nil {
+                    if data != nil {
+                        var user = JSON(data: data!)
+                        self.userID = user["id"].string!
+                        (UIApplication.sharedApplication().delegate as! AppDelegate).userID = self.userID
+                        self.userIDLoadComplete()
+                    }
+                } else {
+                    println(error)
+                    // Insert action here for updating UI
+                }
+            } else {
+                println(response)
+                // Insert action here for updating UI
+            }
+        })
     }
     
     func userIDLoadComplete() {
