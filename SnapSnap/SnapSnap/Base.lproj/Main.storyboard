@@ -81,8 +81,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWF-sh-TzZ" userLabel="View3">
                                 <rect key="frame" x="0.0" y="407" width="600" height="193"/>
                                 <subviews>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
-                                        <rect key="frame" x="150" y="0.0" width="300" height="40"/>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
+                                        <rect key="frame" x="150" y="0.0" width="300" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="Ebo-2c-zTL"/>
                                         </constraints>
@@ -92,8 +92,8 @@
                                             <outlet property="delegate" destination="1OG-Oe-avg" id="Y7H-dv-BdG"/>
                                         </connections>
                                     </textField>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
-                                        <rect key="frame" x="150" y="55" width="300" height="40"/>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
+                                        <rect key="frame" x="150" y="45" width="300" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="G3x-b0-v0U"/>
                                         </constraints>
@@ -108,8 +108,8 @@
                                             <outlet property="delegate" destination="1OG-Oe-avg" id="0bz-By-Fp0"/>
                                         </connections>
                                     </textField>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c4y-hn-zXj">
-                                        <rect key="frame" x="290" y="10" width="20" height="20"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c4y-hn-zXj">
+                                        <rect key="frame" x="290" y="5" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>

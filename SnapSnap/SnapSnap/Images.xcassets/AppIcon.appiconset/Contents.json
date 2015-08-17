@@ -3,61 +3,61 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "SnapSnap_Logo 120.png",
+      "filename" : "SnapSnap_Logo 58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "SnapSnap_Logo 180.png",
+      "filename" : "SnapSnap_Logo 87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "SnapSnap_Logo 80.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "SnapSnap_Logo 120.png",
+      "scale" : "3x"
+    },
+    {
+      "size" : "60x60",
       "idiom" : "iphone",
       "filename" : "SnapSnap_Logo 120-1.png",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
-      "idiom" : "iphone",
-      "filename" : "SnapSnap_Logo 180-1.png",
-      "scale" : "3x"
-    },
-    {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "SnapSnap_Logo 120-2.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "60x60",
-      "idiom" : "iphone",
-      "filename" : "SnapSnap_Logo 180-2.png",
+      "filename" : "SnapSnap_Logo 180.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "SnapSnap_Logo 76-1.png",
+      "filename" : "SnapSnap_Logo 29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "SnapSnap_Logo 152-1.png",
+      "filename" : "SnapSnap_Logo 58-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "SnapSnap_Logo 76-2.png",
+      "filename" : "SnapSnap_Logo 40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "SnapSnap_Logo 152-2.png",
+      "filename" : "SnapSnap_Logo 80-1.png",
       "scale" : "2x"
     },
     {
