@@ -81,8 +81,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWF-sh-TzZ" userLabel="View3">
                                 <rect key="frame" x="0.0" y="407" width="600" height="193"/>
                                 <subviews>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
-                                        <rect key="frame" x="150" y="0.0" width="300" height="30"/>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Code" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XXV-3O-t0F">
+                                        <rect key="frame" x="150" y="0.0" width="300" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="Ebo-2c-zTL"/>
                                         </constraints>
@@ -92,8 +92,8 @@
                                             <outlet property="delegate" destination="1OG-Oe-avg" id="Y7H-dv-BdG"/>
                                         </connections>
                                     </textField>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
-                                        <rect key="frame" x="150" y="45" width="300" height="30"/>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PIN" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VHv-rO-bps">
+                                        <rect key="frame" x="150" y="55" width="300" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="G3x-b0-v0U"/>
                                         </constraints>
@@ -108,8 +108,8 @@
                                             <outlet property="delegate" destination="1OG-Oe-avg" id="0bz-By-Fp0"/>
                                         </connections>
                                     </textField>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c4y-hn-zXj">
-                                        <rect key="frame" x="290" y="5" width="20" height="20"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c4y-hn-zXj">
+                                        <rect key="frame" x="290" y="10" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>
@@ -443,7 +443,7 @@
                                                         <constraint firstAttribute="width" secondItem="OTL-G8-FoT" secondAttribute="height" multiplier="1:1" priority="999" id="AjE-5K-br3"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-5C-u9X">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-5C-u9X">
                                                     <rect key="frame" x="0.0" y="70" width="600" height="600"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -526,6 +526,7 @@
                                                 <constraint firstItem="GJF-m1-Vdz" firstAttribute="leading" secondItem="i7d-LM-Iid" secondAttribute="trailing" constant="10" id="1Rb-u5-4FG"/>
                                                 <constraint firstItem="QA4-4D-ia4" firstAttribute="top" secondItem="OTL-G8-FoT" secondAttribute="bottom" constant="10" id="27Z-YP-CTs"/>
                                                 <constraint firstAttribute="trailing" secondItem="QA4-4D-ia4" secondAttribute="trailing" constant="20" id="2it-9j-KIS"/>
+                                                <constraint firstItem="1Zt-5C-u9X" firstAttribute="height" secondItem="OTL-G8-FoT" secondAttribute="height" id="4F8-xv-fnv"/>
                                                 <constraint firstItem="i7d-LM-Iid" firstAttribute="centerY" secondItem="GJF-m1-Vdz" secondAttribute="centerY" id="51R-oi-J95"/>
                                                 <constraint firstAttribute="trailing" secondItem="LCA-4Y-R3u" secondAttribute="trailing" constant="20" id="6gs-nc-ewV"/>
                                                 <constraint firstItem="sHe-4C-3nx" firstAttribute="top" secondItem="AQn-3s-vG6" secondAttribute="top" constant="10" id="7HA-qh-svd"/>
@@ -536,6 +537,7 @@
                                                 <constraint firstItem="SEt-zz-HpX" firstAttribute="leading" secondItem="sHe-4C-3nx" secondAttribute="trailing" constant="10" id="K2G-Hd-JjI"/>
                                                 <constraint firstAttribute="trailing" secondItem="OTL-G8-FoT" secondAttribute="trailing" id="L60-6s-ruY"/>
                                                 <constraint firstItem="keA-0I-jD8" firstAttribute="top" secondItem="Pbp-3R-3vK" secondAttribute="bottom" constant="3" id="MVv-zi-Qx2"/>
+                                                <constraint firstItem="1Zt-5C-u9X" firstAttribute="leading" secondItem="OTL-G8-FoT" secondAttribute="leading" id="RIb-Fu-tPC"/>
                                                 <constraint firstItem="Gzq-7j-zQp" firstAttribute="leading" secondItem="keA-0I-jD8" secondAttribute="trailing" constant="2" id="Skl-FM-p17"/>
                                                 <constraint firstItem="MJO-9Y-nez" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="TGZ-fN-RNv"/>
                                                 <constraint firstItem="SEt-zz-HpX" firstAttribute="leading" secondItem="keA-0I-jD8" secondAttribute="leading" id="Xko-Jn-Qqw"/>
@@ -615,7 +617,7 @@
                         <segue destination="yPJ-Hy-sfT" kind="presentation" identifier="GoToNewPost" id="zQB-wV-I6O"/>
                         <segue destination="zVK-OS-hDa" kind="show" identifier="ShowComments" id="6vC-hC-E2b"/>
                         <segue destination="Tew-65-CYa" kind="show" identifier="ShowWebView" id="naq-P2-aSN"/>
-                        <segue destination="LEE-Ku-89a" kind="presentation" identifier="ShowImageViewer" id="fdk-K4-4hs"/>
+                        <segue destination="LEE-Ku-89a" kind="presentation" identifier="ShowImageViewer" modalTransitionStyle="crossDissolve" id="fdk-K4-4hs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEB-Xj-b0k" userLabel="First Responder" sceneMemberID="firstResponder"/>
