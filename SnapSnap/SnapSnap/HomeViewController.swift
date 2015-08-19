@@ -72,6 +72,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // Camera view
         picker.delegate = self
+        picker.navigationBar.translucent = false
+        picker.navigationBar.barTintColor = UIColor(red: CGFloat(251.0/255.0), green: CGFloat(44.0/255.0), blue: CGFloat(125.0/255.0), alpha: CGFloat(1.0))
+//        picker.navigationBar.barTintColor = UIColor.magentaColor() // Background color
+        picker.navigationBar.tintColor = .whiteColor() // Cancel button ~ any UITabBarButton items
+//        picker.navigationBar.titleTextAttributes = [
+//            NSForegroundColorAttributeName : UIColor.whiteColor()
+//        ]
         
         // Pull to refresh code
         self.refreshControl = UIRefreshControl()
@@ -307,16 +314,44 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         presentViewController(alertVC, animated: true, completion: nil)
     }
     
-    @IBAction func shootPhoto(sender: AnyObject) {
-        if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
-            picker.allowsEditing = false
-            picker.sourceType = UIImagePickerControllerSourceType.Camera
-            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
-            picker.showsCameraControls = true
-            presentViewController(picker, animated: true, completion: nil)
-        } else {
-            noCamera()
-        }
+    @IBAction func newPost(sender: AnyObject) {
+        
+        let optionMenu = UIAlertController(title: "New post", message: nil, preferredStyle: .Alert)
+        
+        let cameraAction = UIAlertAction(title: "Take Photo", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                self.picker.allowsEditing = false
+                self.picker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+                self.picker.showsCameraControls = true
+                self.presentViewController(self.picker, animated: true, completion: nil)
+            } else {
+                self.noCamera()
+            }
+
+        })
+        
+        let libraryAction = UIAlertAction(title: "Photo Library", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            self.picker.allowsEditing = false
+            self.picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            self.presentViewController(self.picker, animated: true, completion: nil)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(libraryAction)
+        optionMenu.addAction(cancelAction)
+        
+        presentViewController(optionMenu, animated: true, completion: nil)
     }
+    
 }
 
