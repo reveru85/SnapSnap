@@ -49,11 +49,22 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var posts = JSON(data: data!)
-                self.data.clearEntries()
-                self.data.addEntriesFromJSON(posts)
-                self.CommentsTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var posts = JSON(data: data!)
+                        self.data.clearEntries()
+                        self.data.addEntriesFromJSON(posts)
+                        self.CommentsTableView.reloadData()
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
+                }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
         
@@ -134,11 +145,22 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var posts = JSON(data: data!)
-                self.data.clearEntries()
-                self.data.addEntriesFromJSON(posts)
-                self.CommentsTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var posts = JSON(data: data!)
+                        self.data.clearEntries()
+                        self.data.addEntriesFromJSON(posts)
+                        self.CommentsTableView.reloadData()
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
+                }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
             
             self.refreshControl.endRefreshing()
@@ -174,33 +196,44 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         request.HTTPShouldHandleCookies=false
         
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                
-                if str == "completed" {
-                    
-                    // Reload comments from server on send complete (in async)
-                    self.getNewComments()
-                    
-                    // Hide sending view and re-enable comments posting (in async)
-                    sender.enabled = true
-                    self.CommentsTextField.enabled = true
-                    self.postingBlurView.hidden = true
-                    
-                    // Clear CommentsTextField if posting succeeded (in async)
-                    self.CommentsTextField.text = ""
-                    
-                    if self.parentView is HomeViewController {
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
                         
-                        // Update post entry variable in HomeViewController (backend data)
-                        (self.parentView as! HomeViewController).data.incrementComment(self.postId)
-                        
-                        // Update post cell display in HomeViewController (frontend display)
-                        var commentsInt = self.currentCellView.PostCommentCount.text?.toInt()
-                        commentsInt!++
-                        self.currentCellView.PostCommentCount.text = String(commentsInt!)
+                        if str == "completed" {
+                            
+                            // Reload comments from server on send complete (in async)
+                            self.getNewComments()
+                            
+                            // Hide sending view and re-enable comments posting (in async)
+                            sender.enabled = true
+                            self.CommentsTextField.enabled = true
+                            self.postingBlurView.hidden = true
+                            
+                            // Clear CommentsTextField if posting succeeded (in async)
+                            self.CommentsTextField.text = ""
+                            
+                            if self.parentView is HomeViewController {
+                                
+                                // Update post entry variable in HomeViewController (backend data)
+                                (self.parentView as! HomeViewController).data.incrementComment(self.postId)
+                                
+                                // Update post cell display in HomeViewController (frontend display)
+                                var commentsInt = self.currentCellView.PostCommentCount.text?.toInt()
+                                commentsInt!++
+                                self.currentCellView.PostCommentCount.text = String(commentsInt!)
+                            }
+                        }
                     }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
     }

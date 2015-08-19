@@ -61,12 +61,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var posts = JSON(data: data!)
-                self.data.clearEntries()
-                self.data.addEntriesFromJSON(posts)
-                (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.data.entries.first!.post_id!
-                self.HomeTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var posts = JSON(data: data!)
+                        
+                        if posts.count > 0 {
+                            self.data.clearEntries()
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).isInitialEntryCleared = true
+                            self.data.addEntriesFromJSON(posts)
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.data.entries.first!.post_id!
+                            self.HomeTableView.reloadData()
+                        }
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
+                }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
         
@@ -122,22 +137,31 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let imageRequest: NSURLRequest = NSURLRequest(URL: imageUrl)
                         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
                         NSURLConnection.sendAsynchronousRequest(imageRequest, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                            if data != nil {
-                                
-                                // Convert the downloaded data in to a UIImage object and cache
-                                let image = UIImage(data: data)
-                                self.imageCache[urlString!] = image
-                                self.trimCache()
-                                
-                                // Update the cell
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
+                            
+                            if error == nil {
+                                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                                    if data != nil {
+                                        // Convert the downloaded data in to a UIImage object and cache
+                                        let image = UIImage(data: data)
+                                        self.imageCache[urlString!] = image
+                                        self.trimCache()
                                         
-                                        (cellToUpdate as! PostTableViewCell).PostImage.image = image
-                                        //might cause an error if image is loaded *after* cell has been reused
-                                        //https://stavash.wordpress.com/2012/12/14/advanced-issues-asynchronous-uitableviewcell-content-loading-done-right/
+                                        // Update the cell
+                                        dispatch_async(dispatch_get_main_queue(), {
+                                            if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
+                                                (cellToUpdate as! PostTableViewCell).PostImage.image = image
+                                                //might cause an error if image is loaded *after* cell has been reused
+                                                //https://stavash.wordpress.com/2012/12/14/advanced-issues-asynchronous-uitableviewcell-content-loading-done-right/
+                                            }
+                                        })
                                     }
-                                })
+                                } else {
+                                    println(response)
+                                    // Insert action here for updating UI
+                                }
+                            } else {
+                                println(error)
+                                // Insert action here for updating UI
                             }
                         })
                     }
@@ -171,24 +195,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        var height = scrollView.frame.size.height
-        var contentYoffset = scrollView.contentOffset.y
-        var distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        
-        if distanceFromBottom < height {
+        if data.entries.last?.post_id != nil {
+            var height = scrollView.frame.size.height
+            var contentYoffset = scrollView.contentOffset.y
+            var distanceFromBottom = scrollView.contentSize.height - contentYoffset
             
-            // Reached end of table
-            let currentLastPostID = data.entries.last?.post_id!
-            
-            // Track the last post ID globally so as to not make repeated "Get Previous Posts" on the same last post
-            if lastPostID != currentLastPostID {
+            if distanceFromBottom < height {
                 
-                lastPostID = currentLastPostID!
-                getPreviousPosts(currentLastPostID)
+                // Reached end of table
+                let currentLastPostID = data.entries.last?.post_id!
+                
+                // Track the last post ID globally so as to not make repeated "Get Previous Posts" on the same last post
+                if lastPostID != currentLastPostID {
+                    
+                    lastPostID = currentLastPostID!
+                    getPreviousPosts(currentLastPostID)
+                }
             }
         }
-        
     }
     
     func trimCache() {
@@ -212,38 +236,76 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var posts = JSON(data: data!)
-                
-                // Only add if JSON from server contains more posts
-                if posts.count != 0 {
-                    
-                    self.data.addEntriesFromJSON(posts)
-                    self.HomeTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var posts = JSON(data: data!)
+                        
+                        // Only add if JSON from server contains more posts
+                        if posts.count != 0 {
+                            
+                            self.data.addEntriesFromJSON(posts)
+                            self.HomeTableView.reloadData()
+                        }
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
     }
     
     func getNewPosts() {
         
-        // Get new posts based on newest post
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + albumID! + "/" + self.data.entries.first!.post_id! + "/" + userID!
+        var urlString = ""
+        
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID == nil {
+            println("Getting first load posts")
+            // Get first load posts
+            urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + albumID! + "/" + userID!
+        } else {
+            println("Getting newer posts based on most recent post")
+            // Get new posts based on newest post
+            urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + albumID! + "/" + self.data.entries.first!.post_id! + "/" + userID!
+        }
+        
+        println(urlString)
         
         let url = NSURL(string: urlString)
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var posts = JSON(data: data!)
-                
-                // Only add if JSON from server contains more posts
-                if posts.count != 0 {
-                    
-                    self.data.addEntriesToFrontFromJSON(posts)
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.data.entries.first!.post_id!
-                    self.HomeTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var posts = JSON(data: data!)
+                        
+                        // Only add if JSON from server contains more posts
+                        if posts.count != 0 {
+                            
+                            if (UIApplication.sharedApplication().delegate as! AppDelegate).isInitialEntryCleared == false {
+                                self.data.clearEntries()
+                                (UIApplication.sharedApplication().delegate as! AppDelegate).isInitialEntryCleared = true
+                            }
+                            
+                            self.data.addEntriesToFrontFromJSON(posts)
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.data.entries.first!.post_id!
+                            self.HomeTableView.reloadData()
+                        }
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
             
             self.refreshControl.endRefreshing()
