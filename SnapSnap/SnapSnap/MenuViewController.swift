@@ -41,9 +41,9 @@ class MenuViewController: UITableViewController {
         
         self.option = option
 
-        parentView.performSegueWithIdentifier("ShowWebView", sender: self)
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {
+            self.parentView.performSegueWithIdentifier("ShowWebView", sender: self)
+        })
     }
     
     @IBAction func AboutButtonTouch(sender: UIButton) {
@@ -63,7 +63,9 @@ class MenuViewController: UITableViewController {
     
     @IBAction func LoginButtonTouch(sender: UIButton) {
         welcomeView.loginFromWelcomeScreen = false
-        welcomeView.loginView.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        self.dismissViewControllerAnimated(true, completion: {
+            self.welcomeView.loginView.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
+        })
     }
 }

@@ -299,8 +299,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // Camera view
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        dismissViewControllerAnimated(true, completion: nil)
-        self.performSegueWithIdentifier("GoToNewPost", sender:self)
+        dismissViewControllerAnimated(true, completion: {
+            self.performSegueWithIdentifier("GoToNewPost", sender:self)
+        })
+        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
