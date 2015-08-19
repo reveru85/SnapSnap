@@ -43,29 +43,40 @@ class PostTableViewCell: UITableViewCell {
             var request = NSURLRequest(URL: url!)
             let queue: NSOperationQueue = NSOperationQueue.mainQueue()
             NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                if data != nil {
-                    var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    
-                    if str == "completed" {
-                        // Update immediate UI
-                        self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
-                        self.IsLike = true;
-                        
-                        // Update post entry variable in HomeViewController (backend data)
-                        (self.parentView as! HomeViewController).data.likePost(self.PostId!)
-                        
-                        // Update post cell display in HomeViewController (frontend display)
-                        var likesInt = self.PostLikeCount.text?.toInt()
-                        likesInt!++
-                        self.PostLikeCount.text = String(likesInt!)
+                
+                if error == nil {
+                    if (response as! NSHTTPURLResponse).statusCode == 200 {
+                        if data != nil {
+                            var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                            
+                            if str == "completed" {
+                                // Update immediate UI
+                                self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
+                                self.IsLike = true;
+                                
+                                // Update post entry variable in HomeViewController (backend data)
+                                (self.parentView as! HomeViewController).data.likePost(self.PostId!)
+                                
+                                // Update post cell display in HomeViewController (frontend display)
+                                var likesInt = self.PostLikeCount.text?.toInt()
+                                likesInt!++
+                                self.PostLikeCount.text = String(likesInt!)
+                            }
+                            else if str == "liked" {
+                                self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
+                                
+                                var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
+                                likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+                                (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
+                            }
+                        }
+                    } else {
+                        println(response)
+                        // Insert action here for updating UI
                     }
-                    else if str == "liked" {
-                        self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
-                        
-                        var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
-                        likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                        (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
-                    }
+                } else {
+                    println(error)
+                    // Insert action here for updating UI
                 }
             })
         }
@@ -91,7 +102,7 @@ class PostTableViewCell: UITableViewCell {
             if self.parentView is HomeViewController {
                 
                 let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
-                content.contentURL = NSURL(string: "http://gegder.com/post.php?id=" + self.PostId)
+                content.contentURL = NSURL(string: "http://www.snapsnap.com.sg/webdev/album")// + self.PostId)
                 content.contentTitle = self.PostTitle.text
                 content.contentDescription = self.PostHashtags.text
                 content.imageURL = NSURL(string: (self.parentView as! HomeViewController).data.findEntry(self.PostId).media_url!)
@@ -115,18 +126,29 @@ class PostTableViewCell: UITableViewCell {
                 var request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
                 NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                    if data != nil {
-                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        
-                        if str == "completed" {
-                            // Remove post from post data in code behind and refresh view
-                            (self.parentView as! HomeViewController).data.removeEntry(self.PostId)
-                            (self.parentView as! HomeViewController).HomeTableView.reloadData()
-                            
-                            var flagAlert = UIAlertController(title: "", message: "You have flagged the post as inappropriate.", preferredStyle: UIAlertControllerStyle.Alert)
-                            flagAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
-                            (self.parentView as! HomeViewController).presentViewController(flagAlert, animated: true, completion: nil)
+                    
+                    if error == nil {
+                        if (response as! NSHTTPURLResponse).statusCode == 200 {
+                            if data != nil {
+                                var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                
+                                if str == "completed" {
+                                    // Remove post from post data in code behind and refresh view
+                                    (self.parentView as! HomeViewController).data.removeEntry(self.PostId)
+                                    (self.parentView as! HomeViewController).HomeTableView.reloadData()
+                                    
+                                    var flagAlert = UIAlertController(title: "", message: "You have flagged the post as inappropriate.", preferredStyle: UIAlertControllerStyle.Alert)
+                                    flagAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+                                    (self.parentView as! HomeViewController).presentViewController(flagAlert, animated: true, completion: nil)
+                                }
+                            }
+                        } else {
+                            println(response)
+                            // Insert action here for updating UI
                         }
+                    } else {
+                        println(error)
+                        // Insert action here for updating UI
                     }
                 })
             }

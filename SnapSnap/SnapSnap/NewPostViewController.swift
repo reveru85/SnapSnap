@@ -111,7 +111,11 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         let newBase64String = base64String.stringByReplacingOccurrencesOfString("+", withString: "%2B")
         
         // Prepare data for posting
-        let firstPostId = (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID
+        var firstPostId = ""
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID != nil {
+            firstPostId = (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID!
+        }
+        
         var isLogin = ""
         
         if (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin == true {
@@ -140,7 +144,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         isLogin [compulsory] => 0 or 1
         */
         
-        var postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId!
+        var postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId
         var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&title=" + titleField.text + "&hashtag=" + hashtagField.text
         var postData3 = "&latitude=" + self.latitude + "&longitude=" + self.longitude + "&location=" + self.address
         var postData4 = "&locationCategory1=" + self.country + "&locationCategory2=" + self.administrativeArea
@@ -159,22 +163,38 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         request.HTTPShouldHandleCookies=false
         
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-                
-                println(strData)
-                
-                var posts = JSON(data: data!)
-                
-                // Only add if JSON from server contains more posts
-                if posts.count != 0 {
-                    
-                    self.homeView!.data.addEntriesToFrontFromJSON(posts)
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.homeView!.data.entries.first!.post_id!
-                    self.homeView!.HomeTableView.reloadData()
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        
+                        println(strData)
+                        
+                        var posts = JSON(data: data!)
+                        
+                        // Only add if JSON from server contains more posts
+                        if posts.count != 0 {
+                            
+                            if (UIApplication.sharedApplication().delegate as! AppDelegate).isInitialEntryCleared == false {
+                                self.homeView!.data.clearEntries()
+                                (UIApplication.sharedApplication().delegate as! AppDelegate).isInitialEntryCleared = true
+                            }
+                            
+                            self.homeView!.data.addEntriesToFrontFromJSON(posts)
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID = self.homeView!.data.entries.first!.post_id!
+                            self.homeView!.HomeTableView.reloadData()
+                        }
+                        
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
     }

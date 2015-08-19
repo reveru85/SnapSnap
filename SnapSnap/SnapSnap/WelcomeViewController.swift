@@ -78,8 +78,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             let queue: NSOperationQueue = NSOperationQueue.mainQueue()
             NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
                 
-                if (response as! NSHTTPURLResponse).statusCode == 200 {
-                    if error == nil {
+                if error == nil {
+                    if (response as! NSHTTPURLResponse).statusCode == 200 {
                         if data != nil {
                             var user = JSON(data: data!)
                             self.userID = user["id"].string!
@@ -87,11 +87,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                             self.userIDLoadComplete()
                         }
                     } else {
-                        println(error)
+                        println(response)
                         // Insert action here for updating UI
                     }
                 } else {
-                    println(response)
+                    println(error)
                     // Insert action here for updating UI
                 }
             })
@@ -121,8 +121,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             
-            if (response as! NSHTTPURLResponse).statusCode == 200 {
-                if error == nil {
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
                         var user = JSON(data: data!)
                         self.userID = user["id"].string!
@@ -130,11 +130,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                         self.userIDLoadComplete()
                     }
                 } else {
-                    println(error)
+                    println(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(response)
+                println(error)
                 // Insert action here for updating UI
             }
         })
@@ -243,21 +243,32 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         request.HTTPShouldHandleCookies=false
         
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                var str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                
-                if str == "completed" {
-                    println("Profile update successfully.")
+            
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        
+                        if str == "completed" {
+                            println("Profile update successfully.")
+                        }
+                        else if str == "not_updated" {
+                            println("Profile update failed.")
+                        }
+                        else {
+                            println(str)
+                        }
+                    }
+                    else {
+                        println("data is nil from updateUserData()")
+                    }
+                } else {
+                    println(response)
+                    // Insert action here for updating UI
                 }
-                else if str == "not_updated" {
-                    println("Profile update failed.")
-                }
-                else {
-                    println(str)
-                }
-            }
-            else {
-                println("data is nil from updateUserData()")
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
     }
@@ -358,70 +369,81 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         var request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            if data != nil {
-                
-                //var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-                //println(strData)
-                
-                let album = JSON(data: data!)
-                
-                if let albumID = album["id"].string {
-                    self.albumID = albumID
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
-                    
-                    //if successful
-                    self.EventCodeField.text = ""
-                    self.PinField.text = ""
-                    self.EventCodeField.hidden = false
-                    self.PinField.hidden = false
-                    self.LoadingSpinner.hidden = true
-                    self.performSegueWithIdentifier("GoToHome", sender:self)
+
+            if error == nil {
+                if (response as! NSHTTPURLResponse).statusCode == 200 {
+                    if data != nil {
+                        
+                        //var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        //println(strData)
+                        
+                        let album = JSON(data: data!)
+                        
+                        if let albumID = album["id"].string {
+                            self.albumID = albumID
+                            (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
+                            
+                            //if successful
+                            self.EventCodeField.text = ""
+                            self.PinField.text = ""
+                            self.EventCodeField.hidden = false
+                            self.PinField.hidden = false
+                            self.LoadingSpinner.hidden = true
+                            self.performSegueWithIdentifier("GoToHome", sender:self)
+                        } else {
+                            //if unsuccessful
+                            self.EventCodeField.hidden = false
+                            self.PinField.hidden = false
+                            self.LoadingSpinner.hidden = true
+                            
+                            let animationEvent = CABasicAnimation(keyPath: "position")
+                            animationEvent.duration = 0.06
+                            animationEvent.repeatCount = 3
+                            animationEvent.autoreverses = true
+                            animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
+                            animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
+                            
+                            let animationPIN = CABasicAnimation(keyPath: "position")
+                            animationPIN.duration = 0.06
+                            animationPIN.repeatCount = 3
+                            animationPIN.autoreverses = true
+                            animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
+                            animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
+                            
+                            self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
+                            self.PinField.layer.addAnimation(animationPIN, forKey: "position")
+                        }
+                    }
+                    else {
+                        //if unsuccessful
+                        self.EventCodeField.hidden = false
+                        self.PinField.hidden = false
+                        self.LoadingSpinner.hidden = true
+                        
+                        let animationEvent = CABasicAnimation(keyPath: "position")
+                        animationEvent.duration = 0.06
+                        animationEvent.repeatCount = 3
+                        animationEvent.autoreverses = true
+                        animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
+                        animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
+                        
+                        let animationPIN = CABasicAnimation(keyPath: "position")
+                        animationPIN.duration = 0.06
+                        animationPIN.repeatCount = 3
+                        animationPIN.autoreverses = true
+                        animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
+                        animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
+                        
+                        self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
+                        self.PinField.layer.addAnimation(animationPIN, forKey: "position")
+                    }
                 } else {
-                    //if unsuccessful
-                    self.EventCodeField.hidden = false
-                    self.PinField.hidden = false
-                    self.LoadingSpinner.hidden = true
-                    
-                    let animationEvent = CABasicAnimation(keyPath: "position")
-                    animationEvent.duration = 0.06
-                    animationEvent.repeatCount = 3
-                    animationEvent.autoreverses = true
-                    animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
-                    animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
-                    
-                    let animationPIN = CABasicAnimation(keyPath: "position")
-                    animationPIN.duration = 0.06
-                    animationPIN.repeatCount = 3
-                    animationPIN.autoreverses = true
-                    animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
-                    animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
-                    
-                    self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
-                    self.PinField.layer.addAnimation(animationPIN, forKey: "position")
+                    println(response)
+                    // Insert action here for updating UI
                 }
-            }
-            else {
-                //if unsuccessful
-                self.EventCodeField.hidden = false
-                self.PinField.hidden = false
-                self.LoadingSpinner.hidden = true
-                
-                let animationEvent = CABasicAnimation(keyPath: "position")
-                animationEvent.duration = 0.06
-                animationEvent.repeatCount = 3
-                animationEvent.autoreverses = true
-                animationEvent.fromValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x - 7, self.EventCodeField.center.y))
-                animationEvent.toValue = NSValue(CGPoint: CGPointMake(self.EventCodeField.center.x + 7, self.EventCodeField.center.y))
-                
-                let animationPIN = CABasicAnimation(keyPath: "position")
-                animationPIN.duration = 0.06
-                animationPIN.repeatCount = 3
-                animationPIN.autoreverses = true
-                animationPIN.fromValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x + 7, self.PinField.center.y))
-                animationPIN.toValue = NSValue(CGPoint: CGPointMake(self.PinField.center.x - 7, self.PinField.center.y))
-                
-                self.EventCodeField.layer.addAnimation(animationEvent, forKey: "position")
-                self.PinField.layer.addAnimation(animationPIN, forKey: "position")
+            } else {
+                println(error)
+                // Insert action here for updating UI
             }
         })
     }

@@ -13,6 +13,7 @@ import CryptoSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    internal var isInitialEntryCleared: Bool?
     internal var userID: String?
     internal var albumID: String?
     internal var isFBLogin: Bool?
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        isInitialEntryCleared = false;
         isFBLogin = false;
         welcomeViewController = self.window!.rootViewController as? WelcomeViewController
         
