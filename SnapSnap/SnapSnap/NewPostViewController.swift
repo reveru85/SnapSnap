@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import CoreLocation
+//import CoreLocation
 
 class NewPostViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet var previewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleField: UITextField!
+//    @IBOutlet weak var locationLabel: UILabel!
+//    @IBOutlet var previewHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var postingBlurView: UIVisualEffectView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var postButton: UIBarButtonItem!
@@ -25,17 +25,17 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
     let homeView = (UIApplication.sharedApplication().delegate as! AppDelegate).homeView
     
     // Location functionality
-    var manager: OneShotLocationManager?
-    var address = ""            // subThroughfare + throughfare + country + postal code
-    var latitude = ""           //              > latitude
-    var longitude = ""          //              > longitude
-    var subThoroughfare = ""    // 211C         > location*
-    var thoroughfare = ""       // Punggol Walk > location*
-    var postalCode = ""         // 823211       > location*
-    var country = ""            // Singapore    > locationCategory1 (Country)
-    var administrativeArea = "" // Singapore    > locationCategory2 (State)
-    var locality = ""           // Punggol      > locationCategory3 (City)
-    var subAdministrativeArea = "" // nil       > locationCategory4 (County)
+//    var manager: OneShotLocationManager?
+//    var address = ""            // subThroughfare + throughfare + country + postal code
+//    var latitude = ""           //              > latitude
+//    var longitude = ""          //              > longitude
+//    var subThoroughfare = ""    // 211C         > location*
+//    var thoroughfare = ""       // Punggol Walk > location*
+//    var postalCode = ""         // 823211       > location*
+//    var country = ""            // Singapore    > locationCategory1 (Country)
+//    var administrativeArea = "" // Singapore    > locationCategory2 (State)
+//    var locality = ""           // Punggol      > locationCategory3 (City)
+//    var subAdministrativeArea = "" // nil       > locationCategory4 (County)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,22 +47,22 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
         
         // Get current location immediately after image is taken
-        manager = OneShotLocationManager()
-        manager!.fetchWithCompletion { location, error in
-            
-            // fetch location or an error
-            if let loc = location {
-//                println(location)
-                // Convert location to geocode
-                self.getLocationAddress(location! as CLLocation)
-            } else if let err = error {
-//                println(err.localizedDescription)
-                self.locationLabel.text = "Unknown (Disabled in Settings)"
-            }
-           
-            self.manager = nil
-            
-        }
+//        manager = OneShotLocationManager()
+//        manager!.fetchWithCompletion { location, error in
+//            
+//            // fetch location or an error
+//            if let loc = location {
+////                println(location)
+//                // Convert location to geocode
+//                self.getLocationAddress(location! as CLLocation)
+//            } else if let err = error {
+////                println(err.localizedDescription)
+//                self.locationLabel.text = "Unknown (Disabled in Settings)"
+//            }
+//           
+//            self.manager = nil
+//            
+//        }
     }
     
     deinit {
@@ -89,7 +89,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         postButton.enabled = false
         cancelButton.enabled = false
         postingBlurView.hidden = false
-        titleField.enabled = false
+//        titleField.enabled = false
         hashtagField.enabled = false
         
         // Fix image orientation and crop to square
@@ -145,12 +145,14 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         */
         
         var postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId
-        var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&title=" + titleField.text + "&hashtag=" + hashtagField.text
-        var postData3 = "&latitude=" + self.latitude + "&longitude=" + self.longitude + "&location=" + self.address
-        var postData4 = "&locationCategory1=" + self.country + "&locationCategory2=" + self.administrativeArea
-        var postData5 = "&locationCategory3=" + self.locality + "&locationCategory4=" + self.subAdministrativeArea
+//        var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&title=" + titleField.text + "&hashtag=" + hashtagField.text
+        var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&hashtag=" + hashtagField.text
+
+//        var postData3 = "&latitude=" + self.latitude + "&longitude=" + self.longitude + "&location=" + self.address
+//        var postData4 = "&locationCategory1=" + self.country + "&locationCategory2=" + self.administrativeArea
+//        var postData5 = "&locationCategory3=" + self.locality + "&locationCategory4=" + self.subAdministrativeArea
         
-        var postData = postData1 + postData2 + postData3 + postData4 + postData5
+        var postData = postData1 + postData2// + postData3 + postData4 + postData5
         
         let urlPath: String = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_image_post"
         var url = NSURL(string: urlPath)
@@ -228,70 +230,71 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        if (textField === titleField) {
-            hashtagField.becomeFirstResponder()
-        } else if (textField === hashtagField) {
+//        if (textField === titleField) {
+//            hashtagField.becomeFirstResponder()
+//        } else if (textField === hashtagField) {
+        if (textField === hashtagField) {
             textField.resignFirstResponder()
         }
         
         return true
     }
     
-    func getLocationAddress(location:CLLocation) {
-        var geocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error)->Void in
-            var placemark:CLPlacemark!
-            
-            if error == nil && placemarks.count > 0 {
-                placemark = placemarks[0] as! CLPlacemark
-                
-                self.address = ""
-                self.subThoroughfare = ""
-                self.thoroughfare = ""
-                self.country = ""
-                self.postalCode = ""
-                self.locality = ""
-                self.administrativeArea = ""
-                self.subAdministrativeArea = ""
-                
-                if placemark.subThoroughfare != nil {
-                    self.subThoroughfare = placemark.subThoroughfare
-                    self.address = placemark.subThoroughfare + " "
-                }
-                
-                if placemark.thoroughfare != nil {
-                    self.thoroughfare = placemark.thoroughfare
-                    self.address = self.address + placemark.thoroughfare + ", "
-                }
-                
-                if placemark.country != nil {
-                    self.country = placemark.country
-                    self.address = self.address + placemark.country + " "
-                }
-                
-                if placemark.postalCode != nil {
-                    self.postalCode = placemark.postalCode
-                    self.address = self.address + placemark.postalCode + " "
-                }
-                
-                if placemark.locality != nil {
-                    self.locality = placemark.locality
-                }
-                
-                if placemark.administrativeArea != nil {
-                    self.administrativeArea = placemark.administrativeArea
-                }
-                
-                if placemark.subAdministrativeArea != nil {
-                    self.subAdministrativeArea = placemark.subAdministrativeArea
-                }
-                
-                self.locationLabel.text = self.address
-                
-            }
-        })
-    }
+//    func getLocationAddress(location:CLLocation) {
+//        var geocoder = CLGeocoder()
+//        
+//        geocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error)->Void in
+//            var placemark:CLPlacemark!
+//            
+//            if error == nil && placemarks.count > 0 {
+//                placemark = placemarks[0] as! CLPlacemark
+//                
+//                self.address = ""
+//                self.subThoroughfare = ""
+//                self.thoroughfare = ""
+//                self.country = ""
+//                self.postalCode = ""
+//                self.locality = ""
+//                self.administrativeArea = ""
+//                self.subAdministrativeArea = ""
+//                
+//                if placemark.subThoroughfare != nil {
+//                    self.subThoroughfare = placemark.subThoroughfare
+//                    self.address = placemark.subThoroughfare + " "
+//                }
+//                
+//                if placemark.thoroughfare != nil {
+//                    self.thoroughfare = placemark.thoroughfare
+//                    self.address = self.address + placemark.thoroughfare + ", "
+//                }
+//                
+//                if placemark.country != nil {
+//                    self.country = placemark.country
+//                    self.address = self.address + placemark.country + " "
+//                }
+//                
+//                if placemark.postalCode != nil {
+//                    self.postalCode = placemark.postalCode
+//                    self.address = self.address + placemark.postalCode + " "
+//                }
+//                
+//                if placemark.locality != nil {
+//                    self.locality = placemark.locality
+//                }
+//                
+//                if placemark.administrativeArea != nil {
+//                    self.administrativeArea = placemark.administrativeArea
+//                }
+//                
+//                if placemark.subAdministrativeArea != nil {
+//                    self.subAdministrativeArea = placemark.subAdministrativeArea
+//                }
+//                
+//                self.locationLabel.text = self.address
+//                
+//            }
+//        })
+//    }
 }
 
 extension UIImage {

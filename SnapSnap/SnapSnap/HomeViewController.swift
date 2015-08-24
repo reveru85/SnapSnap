@@ -177,9 +177,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         // Update the UI with the current post
-        cell.PostTitle.text = post.title
-        cell.UserLabel.text = post.username
-        cell.UserLocation.text = post.location
+//        cell.PostTitle.text = post.title
+//        cell.UserLabel.text = post.username
+//        cell.UserLocation.text = post.location
         cell.PostDateTime.text = post.created_datetime
         cell.PostHashtags.text = post.hash_tag
         cell.PostCommentCount.text = post.total_comments
