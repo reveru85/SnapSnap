@@ -23,6 +23,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
         <mutableArray key="PoetsenOne-Regular.otf">
             <string>PoetsenOne-Regular</string>
@@ -83,6 +84,11 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="1OG-Oe-avg" id="Y7H-dv-BdG"/>
                                         </connections>
@@ -94,6 +100,11 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="go" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="G3x-b0-v0U"/>
@@ -106,8 +117,26 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c4y-hn-zXj">
                                         <rect key="frame" x="290" y="10" width="20" height="20"/>
                                     </activityIndicatorView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ri-y7-0UW">
+                                        <rect key="frame" x="150" y="110" width="300" height="40"/>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                                        <state key="normal" title="No thanks, just browsing!">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="SubmitGuestLogin:" destination="1OG-Oe-avg" eventType="touchUpInside" id="wFB-da-P8r"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="9Ri-y7-0UW" firstAttribute="top" secondItem="VHv-rO-bps" secondAttribute="bottom" constant="15" id="2P8-Jp-Jvg"/>
                                     <constraint firstItem="XXV-3O-t0F" firstAttribute="top" secondItem="eWF-sh-TzZ" secondAttribute="top" id="4tZ-jc-Tr8"/>
                                     <constraint firstItem="XXV-3O-t0F" firstAttribute="height" secondItem="eWF-sh-TzZ" secondAttribute="height" multiplier="1:3" priority="999" id="5Q1-pe-1XT"/>
                                     <constraint firstItem="XXV-3O-t0F" firstAttribute="centerY" secondItem="c4y-hn-zXj" secondAttribute="centerY" id="5wM-Gw-SAX"/>
@@ -115,8 +144,11 @@
                                     <constraint firstItem="VHv-rO-bps" firstAttribute="top" secondItem="XXV-3O-t0F" secondAttribute="bottom" constant="15" id="EUq-be-qL1"/>
                                     <constraint firstAttribute="width" secondItem="XXV-3O-t0F" secondAttribute="width" multiplier="2:1" id="N2x-WC-ApK"/>
                                     <constraint firstAttribute="centerX" secondItem="XXV-3O-t0F" secondAttribute="centerX" id="V9n-xi-xUM"/>
+                                    <constraint firstAttribute="centerX" secondItem="9Ri-y7-0UW" secondAttribute="centerX" id="Wfb-aw-Fzd"/>
                                     <constraint firstItem="VHv-rO-bps" firstAttribute="height" secondItem="XXV-3O-t0F" secondAttribute="height" id="XeW-0S-hTp"/>
+                                    <constraint firstItem="VHv-rO-bps" firstAttribute="height" secondItem="9Ri-y7-0UW" secondAttribute="height" id="geY-dh-3Hr"/>
                                     <constraint firstAttribute="centerX" secondItem="c4y-hn-zXj" secondAttribute="centerX" id="kEm-RL-p2k"/>
+                                    <constraint firstItem="VHv-rO-bps" firstAttribute="width" secondItem="9Ri-y7-0UW" secondAttribute="width" id="sZ2-g9-gvk"/>
                                     <constraint firstAttribute="centerX" secondItem="VHv-rO-bps" secondAttribute="centerX" id="yFM-cY-8Yf"/>
                                 </constraints>
                             </view>
@@ -140,6 +172,7 @@
                     <connections>
                         <outlet property="BottomConstraint" destination="oKT-CC-6Ki" id="2vP-Y7-dle"/>
                         <outlet property="EventCodeField" destination="XXV-3O-t0F" id="EeN-29-tS4"/>
+                        <outlet property="GuestLoginButton" destination="9Ri-y7-0UW" id="c06-D9-nZo"/>
                         <outlet property="LoadingSpinner" destination="c4y-hn-zXj" id="5Oo-Ja-iRl"/>
                         <outlet property="PinField" destination="VHv-rO-bps" id="rmK-ni-uuh"/>
                         <segue destination="5BZ-8j-Lpg" kind="presentation" identifier="GoToHome" id="nvo-rP-rFt"/>

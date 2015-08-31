@@ -16,6 +16,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     @IBOutlet weak var EventCodeField: UITextField!
     @IBOutlet weak var PinField: UITextField!
     @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var GuestLoginButton: UIButton!
     
     var userID = ""
     var albumID = ""
@@ -35,6 +36,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         
 //        ConnectFBButton.layer.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.3).CGColor
         
+        GuestLoginButton.layer.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.3).CGColor
+        
 //        self.view.addSubview(loginView)
         loginView.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 100)
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
@@ -43,6 +46,15 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
+        
+        //Looks for single or multiple taps.
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -146,6 +158,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
 //        NotNowButton.hidden = false
         EventCodeField.hidden = false
         PinField.hidden = false
+        GuestLoginButton.hidden = false
         
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
@@ -359,6 +372,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         //disable fields and show spinner
         EventCodeField.hidden = true
         PinField.hidden = true
+        GuestLoginButton.hidden = true
         LoadingSpinner.hidden = false
         
         //send eventcode and pin to server
@@ -388,12 +402,14 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                             self.PinField.text = ""
                             self.EventCodeField.hidden = false
                             self.PinField.hidden = false
+                            self.GuestLoginButton.hidden = false
                             self.LoadingSpinner.hidden = true
                             self.performSegueWithIdentifier("GoToHome", sender:self)
                         } else {
                             //if unsuccessful
                             self.EventCodeField.hidden = false
                             self.PinField.hidden = false
+                            self.GuestLoginButton.hidden = false
                             self.LoadingSpinner.hidden = true
                             
                             let animationEvent = CABasicAnimation(keyPath: "position")
@@ -418,6 +434,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                         //if unsuccessful
                         self.EventCodeField.hidden = false
                         self.PinField.hidden = false
+                        self.GuestLoginButton.hidden = false
                         self.LoadingSpinner.hidden = true
                         
                         let animationEvent = CABasicAnimation(keyPath: "position")
@@ -446,6 +463,12 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                 // Insert action here for updating UI
             }
         })
+    }
+    @IBAction func SubmitGuestLogin(sender: UIButton) {
+        EventCodeField.text = "snapsnapdemo"
+        PinField.text = "123456"
+        
+        SubmitEventPin()
     }
 }
 
