@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var imageCache = [String:UIImage]()
     var selectedPostCellId = ""
     var selectedPostCell : PostTableViewCell!
+    var albumTitle = ""
     
     // Camera view
     let picker = UIImagePickerController()
@@ -100,6 +101,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "getNewPosts", forControlEvents: UIControlEvents.ValueChanged)
         self.HomeTableView.addSubview(refreshControl)
+        
+        
+        self.title = albumTitle
     }
     
     override func didReceiveMemoryWarning() {
@@ -361,10 +365,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // Camera view
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil)
+        
         dismissViewControllerAnimated(true, completion: {
             self.performSegueWithIdentifier("GoToNewPost", sender:self)
-        })
-        
+        })    
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -379,6 +385,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func newPost(sender: AnyObject) {
+        var login : Bool
+        login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
+        
+        if !login {
+            // UI Alert & return
+            var loginAlert = UIAlertController(title: "", message: "Login to Facebook to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
+            loginAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(loginAlert, animated: true, completion: nil)
+            return
+        }
+        
         
         let optionMenu = UIAlertController(title: "New post", message: nil, preferredStyle: .Alert)
         

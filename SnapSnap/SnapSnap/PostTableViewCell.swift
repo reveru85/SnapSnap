@@ -108,8 +108,9 @@ class PostTableViewCell: UITableViewCell {
                 if self.parentView is HomeViewController {
                     
                     let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
-                    content.contentURL = NSURL(string: "http://www.snapsnap.com.sg/webdev/album")// + self.PostId)
-                    content.contentTitle = self.PostTitle.text
+                    content.contentURL = NSURL(string: "http://www.snapsnap.com.sg/webdev/album/post.php?id=" + self.PostId)// + self.PostId)
+                    content.contentTitle = "Shared from SnapSnap"
+                    //content.contentTitle = self.PostTitle.text
                     content.contentDescription = self.PostHashtags.text
                     content.imageURL = NSURL(string: (self.parentView as! HomeViewController).data.findEntry(self.PostId).media_url!)
                     

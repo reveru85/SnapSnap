@@ -30,10 +30,10 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         var login : Bool
         login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
         
-//        if !login {
-//            postButton.hidden = true
-//            CommentsTextField.hidden = true
-//        }
+        if !login {
+            postButton.hidden = true
+            CommentsTextField.hidden = true
+        }
         
         CommentsTableView.delegate = self
         CommentsTableView.dataSource = self

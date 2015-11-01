@@ -29,6 +29,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     let loginView : FBSDKLoginButton = FBSDKLoginButton()
     var firstload = true
     var loginFromWelcomeScreen = true
+    var albumTitle = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +119,10 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "GoToHome") {
             (UIApplication.sharedApplication().delegate as! AppDelegate).mainTabViewController = segue.destinationViewController as? UITabBarController
+            var nc = segue.destinationViewController as! UINavigationController
+            var vc = nc.viewControllers.first as! HomeViewController
+            
+            vc.albumTitle = self.albumTitle
         }
     }
     
@@ -398,6 +403,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                             (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
                             
                             //if successful
+                            self.albumTitle = self.EventCodeField.text
                             self.EventCodeField.text = ""
                             self.PinField.text = ""
                             self.EventCodeField.hidden = false
@@ -470,5 +476,8 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         
         SubmitEventPin()
     }
+    
+    
+
 }
 
