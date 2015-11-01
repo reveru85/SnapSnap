@@ -1,6 +1,6 @@
 //
 //  PostTableViewCell.swift
-//  Gegder
+//  
 //
 //  Copyright (c) 2015 Genesys. All rights reserved.
 //

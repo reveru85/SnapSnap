@@ -10,7 +10,7 @@ import Foundation
 class PostData {
     class PostEntry {
 //        var title : String?
-//        var username : String?
+        var username : String?
 //        var location : String?
         var media_url : String?
         var created_datetime : String?
@@ -44,7 +44,7 @@ class PostData {
             
             let entry = PostEntry()
 //            entry.title = post["title"].string!
-//            entry.username = post["username"].string!
+            entry.username = post["username"].string!
 //            entry.location = post["location"].string!
             entry.media_url = post["link_url"].string!
             entry.created_datetime = post["created_datetime"].string!
@@ -85,7 +85,7 @@ class PostData {
             
             let entry = PostEntry()
 //            entry.title = post["title"].string!
-//            entry.username = post["username"].string!
+            entry.username = post["username"].string!
 //            entry.location = post["location"].string!
             entry.media_url = post["link_url"].string!
             entry.created_datetime = post["created_datetime"].string!

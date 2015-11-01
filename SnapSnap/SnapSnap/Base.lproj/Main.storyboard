@@ -24,6 +24,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
         <mutableArray key="PoetsenOne-Regular.otf">
             <string>PoetsenOne-Regular</string>
@@ -433,14 +434,22 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ECH-yo-eYu" id="AQn-3s-vG6">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7x1-xo-srU">
+                                                    <rect key="frame" x="20" y="10" width="560" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="YJx-NY-hIq"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="post_default" translatesAutoresizingMaskIntoConstraints="NO" id="OTL-G8-FoT">
-                                                    <rect key="frame" x="0.0" y="10" width="600" height="600"/>
+                                                    <rect key="frame" x="0.0" y="145" width="600" height="600"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="OTL-G8-FoT" secondAttribute="height" multiplier="1:1" priority="999" id="AjE-5K-br3"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Zt-5C-u9X">
-                                                    <rect key="frame" x="0.0" y="10" width="600" height="600"/>
+                                                    <rect key="frame" x="0.0" y="145" width="600" height="600"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -449,7 +458,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Datetime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QA4-4D-ia4">
-                                                    <rect key="frame" x="20" y="620" width="560" height="20"/>
+                                                    <rect key="frame" x="20" y="30" width="560" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="oh0-69-D5e"/>
                                                     </constraints>
@@ -458,7 +467,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Hashtags" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJO-9Y-nez">
-                                                    <rect key="frame" x="20" y="640" width="560" height="105"/>
+                                                    <rect key="frame" x="20" y="50" width="560" height="85"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -529,9 +538,14 @@
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" id="Axs-xx-JwT"/>
                                                 <constraint firstItem="QA4-4D-ia4" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="HlG-Mc-uxt"/>
                                                 <constraint firstAttribute="trailing" secondItem="OTL-G8-FoT" secondAttribute="trailing" id="L60-6s-ruY"/>
+                                                <constraint firstAttribute="trailing" secondItem="7x1-xo-srU" secondAttribute="trailing" constant="20" id="Le4-DZ-MBf"/>
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="top" secondItem="AQn-3s-vG6" secondAttribute="top" constant="10" id="N3N-iB-375"/>
+                                                <constraint firstItem="7x1-xo-srU" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="Ok1-IM-0WU"/>
                                                 <constraint firstItem="1Zt-5C-u9X" firstAttribute="leading" secondItem="OTL-G8-FoT" secondAttribute="leading" id="RIb-Fu-tPC"/>
                                                 <constraint firstItem="MJO-9Y-nez" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="TGZ-fN-RNv"/>
+                                                <constraint firstItem="QA4-4D-ia4" firstAttribute="top" secondItem="7x1-xo-srU" secondAttribute="bottom" id="VEy-fD-n5O"/>
+                                                <constraint firstItem="7x1-xo-srU" firstAttribute="top" secondItem="AQn-3s-vG6" secondAttribute="top" constant="10" id="Xsu-VS-0xn"/>
+                                                <constraint firstItem="AjY-fe-mcE" firstAttribute="top" secondItem="OTL-G8-FoT" secondAttribute="bottom" constant="20" id="YNB-9b-hgE"/>
                                                 <constraint firstItem="i7d-LM-Iid" firstAttribute="centerY" secondItem="ZhB-XW-l7N" secondAttribute="centerY" id="ZRt-Cg-IJT"/>
                                                 <constraint firstItem="AjY-fe-mcE" firstAttribute="leading" secondItem="AQn-3s-vG6" secondAttribute="leading" constant="20" id="chm-mD-k4k"/>
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="width" secondItem="1Zt-5C-u9X" secondAttribute="width" id="g5j-2u-VpF"/>
@@ -540,9 +554,17 @@
                                                 <constraint firstItem="AjY-fe-mcE" firstAttribute="top" secondItem="MJO-9Y-nez" secondAttribute="bottom" constant="20" id="mFt-lR-4IX"/>
                                                 <constraint firstItem="OTL-G8-FoT" firstAttribute="centerY" secondItem="1Zt-5C-u9X" secondAttribute="centerY" id="nrM-vg-cmT"/>
                                                 <constraint firstItem="ZhB-XW-l7N" firstAttribute="centerY" secondItem="AjY-fe-mcE" secondAttribute="centerY" id="nvZ-By-sA4"/>
+                                                <constraint firstItem="OTL-G8-FoT" firstAttribute="top" secondItem="MJO-9Y-nez" secondAttribute="bottom" constant="10" id="xHp-ta-0Ug"/>
                                                 <constraint firstItem="AjY-fe-mcE" firstAttribute="centerY" secondItem="LCA-4Y-R3u" secondAttribute="centerY" id="xjK-Ey-LO9"/>
                                                 <constraint firstItem="MJO-9Y-nez" firstAttribute="top" secondItem="QA4-4D-ia4" secondAttribute="bottom" id="ytk-HN-Op8"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="27Z-YP-CTs"/>
+                                                    <exclude reference="N3N-iB-375"/>
+                                                    <exclude reference="mFt-lR-4IX"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="PostCommentButton" destination="AjY-fe-mcE" id="8V3-Dj-kdP"/>
@@ -552,6 +574,7 @@
                                             <outlet property="PostImage" destination="OTL-G8-FoT" id="vfH-Nt-XNQ"/>
                                             <outlet property="PostLikeButton" destination="i7d-LM-Iid" id="lWl-zA-ve4"/>
                                             <outlet property="PostLikeCount" destination="GJF-m1-Vdz" id="PKZ-g8-gAE"/>
+                                            <outlet property="UserLabel" destination="7x1-xo-srU" id="Si8-T2-nzR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

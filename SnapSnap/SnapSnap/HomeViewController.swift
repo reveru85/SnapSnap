@@ -182,7 +182,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // Update the UI with the current post
 //        cell.PostTitle.text = post.title
-//        cell.UserLabel.text = post.username
+        cell.UserLabel.text = post.username
 //        cell.UserLocation.text = post.location
         cell.PostDateTime.text = post.created_datetime
         cell.PostHashtags.text = post.hash_tag
@@ -385,16 +385,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func newPost(sender: AnyObject) {
-        var login : Bool
-        login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
         
-        if !login {
+        if self.albumTitle == "snapsnapdemo" {
             // UI Alert & return
-            var loginAlert = UIAlertController(title: "", message: "Login to Facebook to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
+            var loginAlert = UIAlertController(title: "", message: "Enter a different album to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
             loginAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(loginAlert, animated: true, completion: nil)
             return
         }
+        
+//        var login : Bool
+//        login = (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin!
+//        
+//        if !login {
+//            // UI Alert & return
+//            var loginAlert = UIAlertController(title: "", message: "Login to Facebook to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
+//            loginAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+//            self.presentViewController(loginAlert, animated: true, completion: nil)
+//            return
+//        }
         
         
         let optionMenu = UIAlertController(title: "New post", message: nil, preferredStyle: .Alert)
