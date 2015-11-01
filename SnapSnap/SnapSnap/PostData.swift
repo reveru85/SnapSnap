@@ -46,7 +46,7 @@ class PostData {
 //            entry.title = post["title"].string!
             entry.username = post["username"].string!
 //            entry.location = post["location"].string!
-            entry.media_url = post["link_url"].string!
+            entry.media_url = post["app_link_url"].string!
             entry.created_datetime = post["created_datetime"].string!
             
             var dateString = post["created_datetime"].string!
@@ -87,7 +87,7 @@ class PostData {
 //            entry.title = post["title"].string!
             entry.username = post["username"].string!
 //            entry.location = post["location"].string!
-            entry.media_url = post["link_url"].string!
+            entry.media_url = post["app_link_url"].string!
             entry.created_datetime = post["created_datetime"].string!
             entry.hash_tag = post["hash_tag"].string!
             entry.description = post["description"].string!
