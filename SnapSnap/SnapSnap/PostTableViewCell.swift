@@ -39,16 +39,16 @@ class PostTableViewCell: UITableViewCell {
             if parentView is HomeViewController {
                 
                 // Like post API
-                var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
+                let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_like/" + PostId! + "/" + UserId!
                 let url = NSURL(string: urlString)
-                var request = NSURLRequest(URL: url!)
+                let request = NSURLRequest(URL: url!)
                 let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-                NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                     
                     if error == nil {
                         if (response as! NSHTTPURLResponse).statusCode == 200 {
                             if data != nil {
-                                var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
                                 
                                 if str == "completed" {
                                     // Update immediate UI
@@ -59,24 +59,24 @@ class PostTableViewCell: UITableViewCell {
                                     (self.parentView as! HomeViewController).data.likePost(self.PostId!)
                                     
                                     // Update post cell display in HomeViewController (frontend display)
-                                    var likesInt = self.PostLikeCount.text?.toInt()
+                                    var likesInt = Int(self.PostLikeCount.text!)
                                     likesInt!++
                                     self.PostLikeCount.text = String(likesInt!)
                                 }
                                 else if str == "liked" {
                                     self.PostLikeButton.imageView?.image = UIImage(named:"ic_like_on")
                                     
-                                    var likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
+                                    let likeAlert = UIAlertController(title: "", message: "You have liked the post.", preferredStyle: UIAlertControllerStyle.Alert)
                                     likeAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
                                     (self.parentView as! HomeViewController).presentViewController(likeAlert, animated: true, completion: nil)
                                 }
                             }
                         } else {
-                            println(response)
+                            print(response)
                             // Insert action here for updating UI
                         }
                     } else {
-                        println(error)
+                        print(error)
                         // Insert action here for updating UI
                     }
                 })
@@ -128,33 +128,41 @@ class PostTableViewCell: UITableViewCell {
                 
                 if self.parentView is HomeViewController {
                     
-                    var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
+                    if (self.parentView as! HomeViewController).albumTitle == "snapsnapdemo" {
+                        // UI Alert & return
+                        let loginAlert = UIAlertController(title: "", message: "Enter a different album to enable flag functionality.", preferredStyle: UIAlertControllerStyle.Alert)
+                        loginAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+                        self.parentView.presentViewController(loginAlert, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/action_flag_as_inappropriate/" + self.PostId
                     let url = NSURL(string: urlString)
-                    var request = NSURLRequest(URL: url!)
+                    let request = NSURLRequest(URL: url!)
                     let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-                    NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                    NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                         
                         if error == nil {
                             if (response as! NSHTTPURLResponse).statusCode == 200 {
                                 if data != nil {
-                                    var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                    let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
                                     
                                     if str == "completed" {
                                         // Remove post from post data in code behind and refresh view
                                         (self.parentView as! HomeViewController).data.removeEntry(self.PostId)
                                         (self.parentView as! HomeViewController).HomeTableView.reloadData()
                                         
-                                        var flagAlert = UIAlertController(title: "", message: "You have flagged the post as inappropriate.", preferredStyle: UIAlertControllerStyle.Alert)
+                                        let flagAlert = UIAlertController(title: "", message: "You have flagged the post as inappropriate.", preferredStyle: UIAlertControllerStyle.Alert)
                                         flagAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
                                         (self.parentView as! HomeViewController).presentViewController(flagAlert, animated: true, completion: nil)
                                     }
                                 }
                             } else {
-                                println(response)
+                                print(response)
                                 // Insert action here for updating UI
                             }
                         } else {
-                            println(error)
+                            print(error)
                             // Insert action here for updating UI
                         }
                     })

@@ -26,16 +26,16 @@ class CommentData {
     
     func addEntriesFromJSON(data: JSON) {
         
-        for (index: String, post: JSON) in data {
+        for (index: _, post: JSON) in data {
             
             let entry = CommentEntry()
-            entry.commentId = post["id"].string!
-            entry.userId = post["user_id"].string!
-            entry.postId = post["dphodto_id"].string!
-            entry.comment = post["comment"].string!
-            entry.status = post["status"].string!
-            entry.datetime = post["created_datetime"].string!
-            entry.name = post["username"].string!
+            entry.commentId = JSON["id"].string!
+            entry.userId = JSON["user_id"].string!
+            entry.postId = JSON["dphodto_id"].string!
+            entry.comment = JSON["comment"].string!
+            entry.status = JSON["status"].string!
+            entry.datetime = JSON["created_datetime"].string!
+            entry.name = JSON["username"].string!
             
             entries.append(entry)
         }
@@ -43,7 +43,7 @@ class CommentData {
     
     func removeEntry(commentId: String) {
         
-        for (index, entry) in enumerate(entries) {
+        for (index, entry) in entries.enumerate() {
             
             if entry.commentId == commentId {
                 

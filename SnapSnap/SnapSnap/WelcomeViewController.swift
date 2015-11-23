@@ -49,7 +49,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
         
         //Looks for single or multiple taps.
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
     
@@ -80,16 +80,16 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         if firstload {
             firstload = false
             
-            let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
+            let deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
             let deviceHash = deviceID.md5()
             
-            var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
+            let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash
             
             // Get UserID from server based on deviceID's hash
-            var url = NSURL(string: urlString)
-            var request = NSURLRequest(URL: url!)
+            let url = NSURL(string: urlString)
+            let request = NSURLRequest(URL: url!)
             let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-            NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                 
                 if error == nil {
                     if (response as! NSHTTPURLResponse).statusCode == 200 {
@@ -100,11 +100,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                             self.userIDLoadComplete()
                         }
                     } else {
-                        println(response)
+                        print(response)
                         // Insert action here for updating UI
                     }
                 } else {
-                    println(error)
+                    print(error)
                     // Insert action here for updating UI
                 }
             })
@@ -119,24 +119,24 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "GoToHome") {
             (UIApplication.sharedApplication().delegate as! AppDelegate).mainTabViewController = segue.destinationViewController as? UITabBarController
-            var nc = segue.destinationViewController as! UINavigationController
-            var vc = nc.viewControllers.first as! HomeViewController
+            let nc = segue.destinationViewController as! UINavigationController
+            let vc = nc.viewControllers.first as! HomeViewController
             
             vc.albumTitle = self.albumTitle
         }
     }
     
     func userIDLoadRetry() {
-        let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
+        let deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
         let deviceHash = deviceID.md5()
         
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash!
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/user/load_user/" + deviceHash
         
         // Get UserID from server based on deviceID's hash
-        var url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let url = NSURL(string: urlString)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
@@ -147,11 +147,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                         self.userIDLoadComplete()
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -190,7 +190,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             if result.grantedPermissions.contains("public_profile")
             {
                 // Do work
-                println("returning user data")
+                print("returning user data")
                 
                 returnUserData()
                 if loginFromWelcomeScreen {
@@ -223,7 +223,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             if ((error) != nil)
             {
                 // Process error
-                println("Error: \(error)")
+                print("Error: \(error)")
                 (UIApplication.sharedApplication().delegate as! AppDelegate).isFBLogin = false
             }
             else
@@ -244,15 +244,15 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     func updateUserData() {
         // Update user data
         userID = (UIApplication.sharedApplication().delegate as! AppDelegate).userID!
-        var postData0 = "userId=" + userID + "&facebookId=" + self.fbId
-        var postData1 = "&firstName=" + self.firstName + "&lastName=" + self.lastName
-        var postData2 = "&email=" + self.email + "&gender=" + self.gender
-        var postData3 = "&timezone=" + String(self.timezone)
-        var postData = postData0 + postData1 + postData2 + postData3
+        let postData0 = "userId=" + userID + "&facebookId=" + self.fbId
+        let postData1 = "&firstName=" + self.firstName + "&lastName=" + self.lastName
+        let postData2 = "&email=" + self.email + "&gender=" + self.gender
+        let postData3 = "&timezone=" + String(self.timezone)
+        let postData = postData0 + postData1 + postData2 + postData3
         
         let urlPath: String = "http://0720backendapi15.snapsnap.com.sg/index.php/user/snapsnap_user_update"
-        var url = NSURL(string: urlPath)
-        var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: urlPath)
+        let request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         
         request.HTTPMethod = "POST"
@@ -260,32 +260,32 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         request.HTTPBody = postData.dataUsingEncoding(NSUTF8StringEncoding)
         request.HTTPShouldHandleCookies=false
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
                         
                         if str == "completed" {
-                            println("Profile update successfully.")
+                            print("Profile update successfully.")
                         }
                         else if str == "not_updated" {
-                            println("Profile update failed.")
+                            print("Profile update failed.")
                         }
                         else {
-                            println(str)
+                            print(str)
                         }
                     }
                     else {
-                        println("data is nil from updateUserData()")
+                        print("data is nil from updateUserData()")
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -313,9 +313,9 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
             
             let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
             let item = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("endEditingNow"))
-            var toolbarButtons = [flexSpace, item]
+            let toolbarButtons = [flexSpace, item]
             
-            if EventCodeField.text.isEmpty {
+            if EventCodeField.text!.isEmpty {
                 item.enabled = false
             }
             else {
@@ -367,11 +367,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
     
     func SubmitEventPin() {
         
-        var eventStr = EventCodeField.text
+        let eventStr = EventCodeField.text
         var pinStr = "000000"
         
-        if !PinField.text.isEmpty {
-            pinStr = PinField.text
+        if !PinField.text!.isEmpty {
+            pinStr = PinField.text!
         }
         
         //disable fields and show spinner
@@ -381,20 +381,20 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
         LoadingSpinner.hidden = false
         
         //send eventcode and pin to server
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/album/verify/" + eventStr + "/" + pinStr
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/album/verify/" + eventStr! + "/" + pinStr
         
         // Get UserID from server based on deviceID's hash
-        var url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let url = NSURL(string: urlString)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
 
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
                         
                         //var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        //println(strData)
+                        //print(strData)
                         
                         let album = JSON(data: data!)
                         
@@ -403,7 +403,7 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                             (UIApplication.sharedApplication().delegate as! AppDelegate).albumID = self.albumID
                             
                             //if successful
-                            self.albumTitle = self.EventCodeField.text
+                            self.albumTitle = self.EventCodeField.text!
                             self.EventCodeField.text = ""
                             self.PinField.text = ""
                             self.EventCodeField.hidden = false
@@ -461,11 +461,11 @@ class WelcomeViewController: UIViewController, FBSDKLoginButtonDelegate, UITextF
                         self.PinField.layer.addAnimation(animationPIN, forKey: "position")
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })

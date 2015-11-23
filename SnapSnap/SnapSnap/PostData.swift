@@ -40,17 +40,17 @@ class PostData {
     
     func addEntriesFromJSON(data: JSON) {
         
-        for (index: String, post: JSON) in data {
+        for (index: _, post: JSON) in data {
             
             let entry = PostEntry()
 //            entry.title = post["title"].string!
-            entry.username = post["username"].string!
+            entry.username = JSON["username"].string!
 //            entry.location = post["location"].string!
-            entry.media_url = post["app_link_url"].string!
-            entry.created_datetime = post["created_datetime"].string!
+            entry.media_url = JSON["app_link_url"].string!
+            entry.created_datetime = JSON["created_datetime"].string!
             
-            var dateString = post["created_datetime"].string!
-            var dateFormatter = NSDateFormatter()
+            let dateString = JSON["created_datetime"].string!
+            let dateFormatter = NSDateFormatter()
             dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
             dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 28800)
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -64,13 +64,13 @@ class PostData {
                 entry.created_datetime = dateString
             }
             
-            entry.hash_tag = post["hash_tag"].string!
-            entry.description = post["description"].string!
-            entry.total_comments = post["total_comments"].string!
-            entry.total_likes = post["total_likes"].string!
-            entry.is_like = post["is_like"].bool!
-            entry.post_id = post["id"].string!
-            entry.display_order = post["display_order"].string!
+            entry.hash_tag = JSON["hash_tag"].string!
+            entry.description = JSON["description"].string!
+            entry.total_comments = JSON["total_comments"].string!
+            entry.total_likes = JSON["total_likes"].string!
+            entry.is_like = JSON["is_like"].bool!
+            entry.post_id = JSON["id"].string!
+            entry.display_order = JSON["display_order"].string!
             
             entries.append(entry)
         }
@@ -78,24 +78,24 @@ class PostData {
     
     func addEntriesToFrontFromJSON(data: JSON) {
         
-        var oldEntries = entries
+        let oldEntries = entries
         var newEntries = [PostEntry]()
         
-        for (index: String, post: JSON) in data {
+        for (index: _, post: JSON) in data {
             
             let entry = PostEntry()
 //            entry.title = post["title"].string!
-            entry.username = post["username"].string!
+            entry.username = JSON["username"].string!
 //            entry.location = post["location"].string!
-            entry.media_url = post["app_link_url"].string!
-            entry.created_datetime = post["created_datetime"].string!
-            entry.hash_tag = post["hash_tag"].string!
-            entry.description = post["description"].string!
-            entry.total_comments = post["total_comments"].string!
-            entry.total_likes = post["total_likes"].string!
-            entry.is_like = post["is_like"].bool!
-            entry.post_id = post["id"].string!
-            entry.display_order = post["display_order"].string!
+            entry.media_url = JSON["app_link_url"].string!
+            entry.created_datetime = JSON["created_datetime"].string!
+            entry.hash_tag = JSON["hash_tag"].string!
+            entry.description = JSON["description"].string!
+            entry.total_comments = JSON["total_comments"].string!
+            entry.total_likes = JSON["total_likes"].string!
+            entry.is_like = JSON["is_like"].bool!
+            entry.post_id = JSON["id"].string!
+            entry.display_order = JSON["display_order"].string!
             
             newEntries.append(entry)
         }
@@ -105,7 +105,7 @@ class PostData {
     
     func removeEntry(postId: String) {
         
-        for (index, entry) in enumerate(entries) {
+        for (index, entry) in entries.enumerate() {
             
             if entry.post_id == postId {
                 
@@ -131,7 +131,7 @@ class PostData {
             if entry.post_id == postId {
                 
                 entry.is_like = true
-                var likesInt = entry.total_likes?.toInt()
+                var likesInt = Int(entry.total_likes!)
                 likesInt!++
                 entry.total_likes = String(likesInt!)
             }
@@ -142,7 +142,7 @@ class PostData {
         for entry in entries {
             if entry.post_id == postId {
                 
-                var commentsInt = entry.total_comments?.toInt()
+                var commentsInt = Int(entry.total_comments!)
                 commentsInt!++
                 entry.total_comments = String(commentsInt!)
             }

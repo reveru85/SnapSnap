@@ -52,11 +52,11 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
 //            
 //            // fetch location or an error
 //            if let loc = location {
-////                println(location)
+////                print(location)
 //                // Convert location to geocode
 //                self.getLocationAddress(location! as CLLocation)
 //            } else if let err = error {
-////                println(err.localizedDescription)
+////                print(err.localizedDescription)
 //                self.locationLabel.text = "Unknown (Disabled in Settings)"
 //            }
 //           
@@ -93,7 +93,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         hashtagField.enabled = false
         
         // Fix image orientation and crop to square
-        var editedImage = newImage?.fixOrientation()
+        let editedImage = newImage?.fixOrientation()
 //        editedImage = editedImage?.cropToSquare()
         
         // Resize image to 720x720
@@ -104,8 +104,8 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
 //        UIGraphicsEndImageContext()
         
         // Create base64 from image
-        var imageData = UIImageJPEGRepresentation(editedImage, 0.2)
-        let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
+        let imageData = UIImageJPEGRepresentation(editedImage!, 0.2)
+        let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
         
         // Replace + with %2B to get around HTTP post restriction
         let newBase64String = base64String.stringByReplacingOccurrencesOfString("+", withString: "%2B")
@@ -144,19 +144,20 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         isLogin [compulsory] => 0 or 1
         */
         
-        var postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId
+        let postData1 = "jpegImageEncoded=" + newBase64String + "&albumId=" + albumID! + "&latestPostId=" + firstPostId
 //        var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&title=" + titleField.text + "&hashtag=" + hashtagField.text
-        var postData2 = "&userId=" + userID! + "&isLogin=" + isLogin + "&hashtag=" + hashtagField.text
+        let postData2 = "&userId=" + userID! + "&isLogin=" + isLogin
+        let postData3 = "&hashtag=" + hashtagField.text!
 
 //        var postData3 = "&latitude=" + self.latitude + "&longitude=" + self.longitude + "&location=" + self.address
 //        var postData4 = "&locationCategory1=" + self.country + "&locationCategory2=" + self.administrativeArea
 //        var postData5 = "&locationCategory3=" + self.locality + "&locationCategory4=" + self.subAdministrativeArea
         
-        var postData = postData1 + postData2// + postData3 + postData4 + postData5
+        let postData = postData1 + postData2 + postData3 //+ postData4 + postData5
         
         let urlPath: String = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_image_post"
-        var url = NSURL(string: urlPath)
-        var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: urlPath)
+        let request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         
         request.HTTPMethod = "POST"
@@ -164,16 +165,16 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         request.HTTPBody = postData.dataUsingEncoding(NSUTF8StringEncoding)
         request.HTTPShouldHandleCookies=false
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        let strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
                         
-                        println(strData)
+                        print(strData)
                         
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         
                         // Only add if JSON from server contains more posts
                         if posts.count != 0 {
@@ -191,11 +192,11 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -301,7 +302,7 @@ extension UIImage {
     
     func cropToSquare() -> UIImage {
         // Create a copy of the image without the imageOrientation property so it is in its native orientation (landscape)
-        let contextImage: UIImage = UIImage(CGImage: self.CGImage)!
+        let contextImage: UIImage = UIImage(CGImage: self.CGImage!)
         
         // Get the size of the contextImage
         let contextSize: CGSize = contextImage.size
@@ -327,10 +328,10 @@ extension UIImage {
         let rect: CGRect = CGRectMake(posX, posY, width, height)
         
         // Create bitmap image from context using the rect
-        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
         
         // Create a new image based on the imageRef and rotate back to the original orientation
-        let image: UIImage = UIImage(CGImage: imageRef, scale: self.scale, orientation: self.imageOrientation)!
+        let image: UIImage = UIImage(CGImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
         
         return image
     }
@@ -373,10 +374,10 @@ extension UIImage {
         
         // Now we draw the underlying CGImage into a new context, applying the transform
         // calculated above.
-        var ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height),
+        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height),
             CGImageGetBitsPerComponent(self.CGImage), 0,
             CGImageGetColorSpace(self.CGImage),
-            CGImageGetBitmapInfo(self.CGImage));
+            CGImageGetBitmapInfo(self.CGImage).rawValue)!;
         
         CGContextConcatCTM(ctx, transform)
         
@@ -390,6 +391,6 @@ extension UIImage {
         }
         
         // And now we just create a new UIImage from the drawing context and return it
-        return UIImage(CGImage: CGBitmapContextCreateImage(ctx))!
+        return UIImage(CGImage: CGBitmapContextCreateImage(ctx)!)
     }
 }

@@ -57,16 +57,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         HomeTableView.rowHeight = UITableViewAutomaticDimension
         
         // Get first load posts
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + albumID! + "/" + userID!
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + albumID! + "/" + userID!
         let url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         
                         if posts.count > 0 {
                             self.data.clearEntries()
@@ -77,11 +77,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -147,13 +147,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if let imageUrl = NSURL(string: urlString!) {
                         let imageRequest: NSURLRequest = NSURLRequest(URL: imageUrl)
                         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-                        NSURLConnection.sendAsynchronousRequest(imageRequest, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                        NSURLConnection.sendAsynchronousRequest(imageRequest, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                             
                             if error == nil {
                                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                                     if data != nil {
                                         // Convert the downloaded data in to a UIImage object and cache
-                                        let image = UIImage(data: data)
+                                        let image = UIImage(data: data!)
                                         self.imageCache[urlString!] = image
                                         self.trimCache()
                                         
@@ -167,11 +167,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                         })
                                     }
                                 } else {
-                                    println(response)
+                                    print(response)
                                     // Insert action here for updating UI
                                 }
                             } else {
-                                println(error)
+                                print(error)
                                 // Insert action here for updating UI
                             }
                         })
@@ -199,17 +199,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.PostLikeButton.imageView?.image = UIImage(named:"ic_like")
         }
         
-        //        println(post.display_order)
-        //        println(post.post_id)
+        //        print(post.display_order)
+        //        print(post.post_id)
         
         return cell
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if data.entries.last?.post_id != nil {
-            var height = scrollView.frame.size.height
-            var contentYoffset = scrollView.contentOffset.y
-            var distanceFromBottom = scrollView.contentSize.height - contentYoffset
+            let height = scrollView.frame.size.height
+            let contentYoffset = scrollView.contentOffset.y
+            let distanceFromBottom = scrollView.contentSize.height - contentYoffset
             
             if distanceFromBottom < height {
                 
@@ -228,7 +228,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func trimCache() {
         if imageCache.count > 10 {
-            for index in 0...4 {
+            for _ in 0...4 {
                 imageCache.removeAtIndex(imageCache.startIndex)
             }
         }
@@ -241,17 +241,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func getPreviousPosts(postID : String?) {
         
         // Get previous posts based on oldest post
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_previous_post/" + albumID! + "/" + postID! + "/" + userID!
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_previous_post/" + albumID! + "/" + postID! + "/" + userID!
         
         let url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         
                         // Only add if JSON from server contains more posts
                         if posts.count != 0 {
@@ -261,11 +261,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -276,26 +276,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var urlString = ""
         
         if (UIApplication.sharedApplication().delegate as! AppDelegate).firstPostID == nil {
-            println("Getting first load posts")
+            print("Getting first load posts")
             // Get first load posts
             urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_list/" + albumID! + "/" + userID!
         } else {
-            println("Getting newer posts based on most recent post")
+            print("Getting newer posts based on most recent post")
             // Get new posts based on newest post
             urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto/dphodto_new_post/" + albumID! + "/" + self.data.entries.first!.post_id! + "/" + userID!
         }
         
-        println(urlString)
+        print(urlString)
         
         let url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         
                         // Only add if JSON from server contains more posts
                         if posts.count != 0 {
@@ -311,11 +311,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
             
@@ -326,13 +326,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // Prepare for segue transitions
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "GoToNewPost") {
-            var nc = segue.destinationViewController as! UINavigationController
-            var vc = nc.viewControllers.first as! NewPostViewController
+            let nc = segue.destinationViewController as! UINavigationController
+            let vc = nc.viewControllers.first as! NewPostViewController
             
             vc.newImage = self.newImage
         }
         else if (segue.identifier == "ShowComments") {
-            var vc = segue.destinationViewController as! CommentsViewController
+            let vc = segue.destinationViewController as! CommentsViewController
             
             vc.postId = self.selectedPostCellId
             vc.parentView = self
@@ -353,7 +353,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         else if (segue.identifier == "ShowImageViewer") {
             
-            var vc = segue.destinationViewController as! ImageViewController
+            let vc = segue.destinationViewController as! ImageViewController
             vc.image = self.selectedPostCell.PostImage.image
         }
     }
@@ -363,14 +363,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // Camera view
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+//        newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+//        
+//        UIImageWriteToSavedPhotosAlbum(newImage!, nil, nil, nil)
+//        
+//        dismissViewControllerAnimated(true, completion: {
+//            self.performSegueWithIdentifier("GoToNewPost", sender:self)
+//        })    
+//    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         
-        UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(newImage!, nil, nil, nil)
         
         dismissViewControllerAnimated(true, completion: {
             self.performSegueWithIdentifier("GoToNewPost", sender:self)
-        })    
+        })
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -388,7 +398,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if self.albumTitle == "snapsnapdemo" {
             // UI Alert & return
-            var loginAlert = UIAlertController(title: "", message: "Enter a different album to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
+            let loginAlert = UIAlertController(title: "", message: "Enter a different album to create a new post.", preferredStyle: UIAlertControllerStyle.Alert)
             loginAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(loginAlert, animated: true, completion: nil)
             return

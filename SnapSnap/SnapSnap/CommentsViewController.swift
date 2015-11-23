@@ -44,26 +44,26 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardNotification:"), name:UIKeyboardWillHideNotification, object: nil)
         
         // Get comments
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
         let url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         self.data.clearEntries()
                         self.data.addEntriesFromJSON(posts)
                         self.CommentsTableView.reloadData()
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
@@ -140,26 +140,26 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     func getNewComments() {
         
         // Get comments
-        var urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
+        let urlString = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_list/" + postId
         let url = NSURL(string: urlString)
-        var request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var posts = JSON(data: data!)
+                        let posts = JSON(data: data!)
                         self.data.clearEntries()
                         self.data.addEntriesFromJSON(posts)
                         self.CommentsTableView.reloadData()
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
             
@@ -170,8 +170,8 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func SendComment(sender: UIButton) {
         let comment = CommentsTextField.text
         
-        if comment.isEmpty {
-            println("no comment entered")
+        if comment!.isEmpty {
+            print("no comment entered")
             return
         }
         
@@ -181,13 +181,17 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         postingBlurView.hidden = false
         
         // Send comment to server
-        var postData = "dphodtoId=" + postId + "&userId=" + userID! + "&comment=" + comment
+        let postData1 = "dphodtoId=" + postId
+        let postData2 = "&userId=" + userID!
+        let postData3 = "&comment=" + comment!
+        let postData = postData1 + postData2 + postData3
+        //let postData = "dphodtoId=" + postId + "&userId=" + userID! + "&comment=" + comment
         
-        println(userID!)
+        print(userID!)
         
         let urlPath: String = "http://0720backendapi15.snapsnap.com.sg/index.php/dphodto_comment/dphodto_comment_create"
-        var url = NSURL(string: urlPath)
-        var request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
+        let url = NSURL(string: urlPath)
+        let request: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
         let queue: NSOperationQueue = NSOperationQueue.mainQueue()
         
         request.HTTPMethod = "POST"
@@ -195,12 +199,12 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
         request.HTTPBody = postData.dataUsingEncoding(NSUTF8StringEncoding)
         request.HTTPShouldHandleCookies=false
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue, completionHandler: { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
             
             if error == nil {
                 if (response as! NSHTTPURLResponse).statusCode == 200 {
                     if data != nil {
-                        var str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
                         
                         if str == "completed" {
                             
@@ -221,18 +225,18 @@ class CommentsViewController: UIViewController, UITableViewDataSource, UITableVi
                                 (self.parentView as! HomeViewController).data.incrementComment(self.postId)
                                 
                                 // Update post cell display in HomeViewController (frontend display)
-                                var commentsInt = self.currentCellView.PostCommentCount.text?.toInt()
+                                var commentsInt = Int(self.currentCellView.PostCommentCount.text!)
                                 commentsInt!++
                                 self.currentCellView.PostCommentCount.text = String(commentsInt!)
                             }
                         }
                     }
                 } else {
-                    println(response)
+                    print(response)
                     // Insert action here for updating UI
                 }
             } else {
-                println(error)
+                print(error)
                 // Insert action here for updating UI
             }
         })
